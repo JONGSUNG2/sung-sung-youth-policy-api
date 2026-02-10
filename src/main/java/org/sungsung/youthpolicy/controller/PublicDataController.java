@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.sungsung.youthpolicy.domain.dto.policy.PolicyDTO;
 import org.sungsung.youthpolicy.domain.dto.policy.RootDTO;
-import org.sungsung.youthpolicy.service.PublicDataService;
+import org.sungsung.youthpolicy.service.publicData.PublicDataService;
 
 import java.util.List;
 

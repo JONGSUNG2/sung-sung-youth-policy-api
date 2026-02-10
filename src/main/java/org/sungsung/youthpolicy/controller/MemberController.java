@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.sungsung.youthpolicy.domain.dto.member.LoginDTO;
-import org.sungsung.youthpolicy.domain.vo.MemberVO;
+import org.sungsung.youthpolicy.domain.vo.member.MemberVO;
 import org.sungsung.youthpolicy.service.member.MemberService;
 
 @Controller
@@ -33,7 +33,7 @@ public class MemberController {
 
         model.addAttribute("member", memberVO);
 
-        return "redirect:member/login";
+        return "redirect:/member/login";
     }
 
     @GetMapping("/login")

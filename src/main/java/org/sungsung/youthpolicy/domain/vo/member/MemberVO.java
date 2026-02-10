@@ -1,4 +1,4 @@
-package org.sungsung.youthpolicy.domain.vo;
+package org.sungsung.youthpolicy.domain.vo.member;
 
 import lombok.Data;
 

@@ -3,7 +3,7 @@ package org.sungsung.youthpolicy.repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.sungsung.youthpolicy.domain.dto.member.LoginDTO;
-import org.sungsung.youthpolicy.domain.vo.MemberVO;
+import org.sungsung.youthpolicy.domain.vo.member.MemberVO;
 import org.sungsung.youthpolicy.mapper.MemberMapper;
 
 @Repository

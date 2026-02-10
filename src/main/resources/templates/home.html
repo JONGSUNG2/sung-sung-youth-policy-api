@@ -1,11 +1,186 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <link th:href="@{/css/bootstrap.min.css}" href="/css/bootstrap.min.css" rel="stylesheet">
-    <title>HTML</title>
+    <meta charset="UTF-8">
+    <title>정책 지원 서비스</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+        }
+
+        /* ------ Header / Navigation ------ */
+        header {
+            background-color: #2d68ff;
+            padding: 15px 20px;
+            color: #fff;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* ------ Hero Section ------ */
+        .hero {
+            background: linear-gradient(to right, #2d68ff, #5c8aff);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .hero h1 {
+            margin: 0 0 10px 0;
+            font-size: 34px;
+        }
+
+        .hero p {
+            margin: 0;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        /* ------ Main Content ------ */
+        .main-section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .main-title {
+            font-size: 26px;
+            margin-bottom: 15px;
+            color: #222;
+        }
+
+        .search-box {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+        }
+
+        .search-box button {
+            padding: 10px 20px;
+            background-color: #2d68ff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .search-box button:hover {
+            background-color: #244fcc;
+        }
+
+        .policy-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .policy-item {
+            background-color: #fff;
+            padding: 18px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .policy-item h3 {
+            margin: 0 0 8px 0;
+        }
+
+        .policy-item p {
+            margin: 0;
+            color: #555;
+        }
+
+        /* ------ Footer ------ */
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #eee;
+            text-align: center;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
-<h2>HOME PAGE</h2>
+
+<header>
+    <div class="nav-container">
+        <div class="logo">정책지원 서비스</div>
+
+        <nav>
+            <ul>
+                <li><a href="/ai-benefit">AI 맞춤혜택 서비스</a></li>
+                <li><a href="#">마이페이지</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- Hero Banner -->
+<section class="hero">
+    <h1>대한민국 모든 혜택을 한 곳에서</h1>
+    <p>청년 · 학생 · 구직자 · 서민 누구나 맞춤 지원을 받을 수 있어요</p>
+</section>
+
+<!-- Main Content -->
+<div class="main-section">
+
+    <h2 class="main-title">정책 목록</h2>
+
+    <div class="search-box">
+        <input type="text" placeholder="정책명 또는 키워드를 검색하세요">
+        <button>검색</button>
+    </div>
+
+    <ul class="policy-list">
+        <li class="policy-item" th:each="policy:${policyList}">
+            <a th:href="@{/policy/detail/{policyId}(policyId=${policy.policyId})}" th:text="${policy.policyName}">정책명 표시</a>
+            <p th:text="${policy.description}">정책 설명 표시</p>
+        </li>
+    </ul>
+</div>
+
+<footer>
+    © 2026 정책지원 서비스. All rights reserved.
+</footer>
+
 </body>
 </html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>정책 상세정보</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+        }
+
+        header {
+            background-color: #2d68ff;
+            padding: 15px 20px;
+            color: #fff;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .main-section {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .meta-info {
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .policy-box {
+            background-color: #f5f7ff;
+            padding: 15px 20px;
+            border-left: 4px solid #2d68ff;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 30px;
+        }
+
+        .keyword-box {
+            background-color: #eee;
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 18px;
+            margin-right: 8px;
+            font-size: 14px;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #eee;
+            text-align: center;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="nav-container">
+        <div class="logo">정책지원 서비스</div>
+        <nav>
+            <ul>
+                <li><a href="/">홈</a></li>
+                <li><a href="/ai-benefit">AI 맞춤혜택 서비스</a></li>
+                <li><a href="#">마이페이지</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="main-section">
+
+    <!-- Title -->
+    <div class="title" th:text="${policy.policyName}">정책명</div>
+
+    <!-- Meta -->
+    <div class="meta-info">
+        <span th:text="'대분류: ' + ${policy.mainCategory}"></span> ·
+        <span th:text="'중분류: ' + ${policy.subCategory}"></span> ·
+        <span th:text="'지역: ' + ${policy.region}"></span>
+    </div>
+
+    <!-- Description -->
+    <div class="policy-box">
+        <strong>정책 설명</strong>
+        <p th:text="${policy.description}">정책 설명 내용 들어가는 곳</p>
+    </div>
+
+    <!-- Keyword -->
+    <div class="section-title">키워드</div>
+    <div>
+        <span class="keyword-box" th:text="${policy.keyword}">청년 / 주거</span>
+    </div>
+
+    <!-- 담당 기관 -->
+    <div class="section-title">담당자 또는 담당 부서</div>
+    <p th:text="${policy.adminName}">서울특별시 청년정책과</p>
+
+    <!-- 신청 방법 -->
+    <div class="section-title">신청 방법</div>
+    <p th:text="${policy.applyMethod}">온라인 또는 방문 신청</p>
+
+</div>
+
+<footer>
+    © 2026 정책지원 서비스. All rights reserved.
+</footer>
+
+</body>
+</html>

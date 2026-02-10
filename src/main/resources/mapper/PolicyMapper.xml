@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.sungsung.youthpolicy.mapper.PublicDataMapper">
+<mapper namespace="org.sungsung.youthpolicy.mapper.PolicyMapper">
 
     <!-- 정책 기본정보 입력 -->
     <insert id="insertToMaster" keyProperty="id" useGeneratedKeys="true">
@@ -78,5 +78,16 @@
                    #{participantTargetText}
                )
     </insert>
+
+    <!--    정책 목록 가져오기-->
+    <select id="selectPolicyList">
+        SELECT POLICY_ID,POLICY_NAME,DESCRIPTION FROM TBL_POLICY_MASTER;
+    </select>
+    <!--    정책 상세 가져오기-->
+    <select id="selectPolicyDetailById">
+        SELECT POLICY_NAME,MAIN_CATEGORY,SUB_CATEGORY,REGION,DESCRIPTION,KEYWORD,ADMIN_NAME,APPLY_METHOD
+        FROM TBL_POLICY_MASTER TPM INNER JOIN TBL_POLICY_APPLICATION TPA
+                                              ON TPA.POLICY_ID = TPM.POLICY_ID WHERE TPM.POLICY_ID = #{policyId}
+    </select>
 
 </mapper>

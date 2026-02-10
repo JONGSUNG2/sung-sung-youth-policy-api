@@ -1,4 +1,4 @@
-package org.sungsung.youthpolicy.service;
+package org.sungsung.youthpolicy.service.publicData;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,7 +10,7 @@ import org.sungsung.youthpolicy.converter.PolicyDataConverter;
 import org.sungsung.youthpolicy.domain.dto.policy.PolicyDTO;
 import org.sungsung.youthpolicy.domain.dto.policy.RootDTO;
 import org.sungsung.youthpolicy.domain.vo.policy.*;
-import org.sungsung.youthpolicy.repository.PublicDataDAO;
+import org.sungsung.youthpolicy.repository.PolicyDAO;
 
 
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
 @Slf4j
 public class PublicDataService {
 
-    private final PublicDataDAO publicDataDAO;
+    private final PolicyDAO policyDAO;
     private final PolicyDataConverter policyDataConverter;
     public RootDTO getPublicData() throws JsonProcessingException {
 //        한국 장학재단 공공데이터
@@ -53,11 +53,11 @@ public class PublicDataService {
             PolicyApplicationVO policyApplicationVO = policyDataConverter.toPolicyApplication(policyDTO);
             PolicyEligibilityVO policyEligibilityVO = policyDataConverter.toPolicyEligibility(policyDTO);
 
-            publicDataDAO.insertToMaster(policyMasterVO);
-            publicDataDAO.insertToSupport(policySupportVO);
-            publicDataDAO.insertToBusinessPeriod(policyBusinessPeriodVO);
-            publicDataDAO.insertToApplication(policyApplicationVO);
-            publicDataDAO.insertToEligibility(policyEligibilityVO);
+            policyDAO.insertToMaster(policyMasterVO);
+            policyDAO.insertToSupport(policySupportVO);
+            policyDAO.insertToBusinessPeriod(policyBusinessPeriodVO);
+            policyDAO.insertToApplication(policyApplicationVO);
+            policyDAO.insertToEligibility(policyEligibilityVO);
         }
     }
 
