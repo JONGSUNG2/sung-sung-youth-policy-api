@@ -1,6 +1,5 @@
 package org.sungsung.youthpolicy.controller;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.sungsung.youthpolicy.domain.dto.member.LoginDTO;
 import org.sungsung.youthpolicy.domain.vo.member.MemberVO;
 import org.sungsung.youthpolicy.service.member.MemberService;
 
@@ -40,11 +38,5 @@ public class MemberController {
         return "member/login";
     }
 
-    @PostMapping("/login")
-    public String login(@ModelAttribute LoginDTO loginDTO, HttpSession session){
-       if (memberService.loginCheck(loginDTO, session)){
-           return "redirect:/";
-       }
-        return  "member/login";
-    }
+
 }

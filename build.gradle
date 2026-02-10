@@ -32,7 +32,8 @@ dependencies {
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     //보안
-//    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 
     implementation 'org.springframework.security:spring-security-crypto'
 
