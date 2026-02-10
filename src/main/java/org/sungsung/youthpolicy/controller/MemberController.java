@@ -44,7 +44,7 @@ public class MemberController {
     @PostMapping("/login")
     public String login(@ModelAttribute LoginDTO loginDTO, HttpSession session){
 
-        if(memberService.logincheck(loginDTO)){
+        if(memberService.loginCheck(loginDTO)){
             session.setAttribute("id", loginDTO.getId());
             log.info("id{}",session.getAttribute("id") );
             return "redirect:/";
