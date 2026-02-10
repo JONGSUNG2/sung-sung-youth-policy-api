@@ -1,6 +1,8 @@
 package org.sungsung.youthpolicy.service.member;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.sungsung.youthpolicy.domain.dto.member.LoginDTO;
@@ -9,6 +11,7 @@ import org.sungsung.youthpolicy.repository.MemberDAO;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MemberServiceImpl implements MemberService {
     private final MemberDAO memberDAO;
     private final PasswordEncoder passwordEncoder;
@@ -21,19 +24,16 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public boolean logincheck(LoginDTO loginDTO) {
+    public boolean loginCheck(LoginDTO loginDTO,HttpSession session) {
 
-        LoginDTO newLoginDTO = memberDAO.selectPwdByLoginId(loginDTO.getLoginId());
-
-        if(newLoginDTO == null){
-            return false;
+        LoginDTO findLoginDTO = memberDAO.selectPwdByLoginId(loginDTO.getLoginId());
+        if (passwordEncoder.matches(loginDTO.getPwd(), findLoginDTO.getPwd())){
+            session.setAttribute("sessionId", findLoginDTO.getId());
+            log.info("loginSuccess");
+            return true;
         }
-
-        boolean match = passwordEncoder.matches(
-                loginDTO.getPwd(),
-                newLoginDTO.getPwd()
-        );
-
-        return match;
+        log.info("loginFail");
+        return false;
     }
+
 }

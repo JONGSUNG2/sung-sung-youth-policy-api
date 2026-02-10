@@ -8,7 +8,7 @@
 
 
     <select id="selectPwdByLoginId">
-        SELECT ID, PWD FROM TBL_MEMBER
+        SELECT ID,LOGIN_ID, PWD FROM TBL_MEMBER
         WHERE LOGIN_ID=#{loginId}
     </select>
 

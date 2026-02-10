@@ -15,7 +15,7 @@ import org.sungsung.youthpolicy.service.member.MemberService;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/member")
+@RequestMapping("/member/*")
 @Slf4j
 public class MemberController {
     private final MemberService memberService;
@@ -30,10 +30,9 @@ public class MemberController {
     public String join(@ModelAttribute MemberVO memberVO, Model model){
 
         memberService.insert(memberVO);
-
         model.addAttribute("member", memberVO);
 
-        return "redirect:member/login";
+        return "redirect:/member/login";
     }
 
     @GetMapping("/login")
@@ -43,12 +42,9 @@ public class MemberController {
 
     @PostMapping("/login")
     public String login(@ModelAttribute LoginDTO loginDTO, HttpSession session){
-
-        if(memberService.logincheck(loginDTO)){
-            session.setAttribute("id", loginDTO.getId());
-            log.info("id{}",session.getAttribute("id") );
-            return "redirect:/";
-        }
+       if (memberService.loginCheck(loginDTO, session)){
+           return "redirect:/";
+       }
         return  "member/login";
     }
 }
