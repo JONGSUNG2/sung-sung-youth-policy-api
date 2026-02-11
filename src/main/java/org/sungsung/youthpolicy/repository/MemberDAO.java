@@ -6,6 +6,8 @@ import org.sungsung.youthpolicy.domain.dto.member.LoginDTO;
 import org.sungsung.youthpolicy.domain.vo.member.MemberVO;
 import org.sungsung.youthpolicy.mapper.MemberMapper;
 
+import java.util.Optional;
+
 @Repository
 @RequiredArgsConstructor
 public class MemberDAO {
@@ -19,5 +21,7 @@ public class MemberDAO {
         return memberMapper.selectPwdByLoginId(loginId);
     }
 
-
+    public Optional<MemberVO> selectMemberByLoginId(Long id){
+        return memberMapper.selectMemberById(id);
+    }
 }
