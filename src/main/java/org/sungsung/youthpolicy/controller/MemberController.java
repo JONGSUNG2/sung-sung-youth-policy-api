@@ -1,16 +1,20 @@
 package org.sungsung.youthpolicy.controller;
 
-import jakarta.servlet.http.HttpSession;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.sungsung.youthpolicy.domain.dto.member.MemberDetailDTO;
 import org.sungsung.youthpolicy.domain.vo.member.MemberVO;
 import org.sungsung.youthpolicy.service.member.MemberService;
+
+import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
@@ -40,11 +44,14 @@ public class MemberController {
     }
 
 
-
-    @GetMapping("/logout")
-    public String logout(HttpSession session){
-        session.invalidate();
-        return "redirect:/";
+    @GetMapping("/detail")
+    public String member(Principal principal, Model model){
+        if(principal == null){
+            return "redirect:/member/login";
+        }
+        MemberDetailDTO member = memberService.findMemberByLoginId(principal.getName());
+        model.addAttribute("member", member);
+        return "member/detail";
     }
 
 }

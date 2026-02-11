@@ -37,6 +37,9 @@ dependencies {
 
     implementation 'org.springframework.security:spring-security-crypto'
 
+    //html 세션인증
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+
 }
 
 tasks.named('test') {

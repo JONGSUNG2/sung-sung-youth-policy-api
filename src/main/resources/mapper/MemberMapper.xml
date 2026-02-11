@@ -11,7 +11,8 @@
         SELECT ID,LOGIN_ID, PWD FROM TBL_MEMBER
         WHERE LOGIN_ID=#{loginId}
     </select>
-    <select id="selectMemberById">
-        SELECT * FROM TBL_MEMBER WHERE ID=#{id}
+
+    <select id="selectMemberByLoginId">
+        SELECT LOGIN_ID, NAME, EMAIL FROM TBL_MEMBER WHERE LOGIN_ID=#{id}
     </select>
 </mapper>

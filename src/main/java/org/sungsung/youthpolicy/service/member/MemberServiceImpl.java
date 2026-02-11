@@ -4,10 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.sungsung.youthpolicy.domain.dto.member.MemberDetailDTO;
 import org.sungsung.youthpolicy.domain.vo.member.MemberVO;
 import org.sungsung.youthpolicy.repository.MemberDAO;
 
-import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -24,12 +25,10 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
-
-
-
     @Override
-    public Optional<MemberVO> findMemberById(Long id) {
-        return memberDAO.selectMemberByLoginId(id);
+    public MemberDetailDTO findMemberByLoginId(String id) {
+        MemberDetailDTO member = memberDAO.selectMemberByLoginId(id).get();
+        return member;
     }
 
 }
