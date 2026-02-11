@@ -147,8 +147,11 @@
 
         <nav>
             <ul>
-                <li><a href="/ai-benefit">AI 맞춤혜택 서비스</a></li>
-                <li><a href="#">마이페이지</a></li>
+                <li th:if="${loginMember} !=null"><a href="/">AI 맞춤혜택 서비스</a></li>
+                <li th:if="${loginMember} != null"><a href="#">마이페이지</a></li>
+                <li th:if="${loginMember} != null"><a th:href="@{/member/logout}">로그아웃</a></li>
+                <li th:if="${loginMember} ==null"><a th:href="@{/member/login}">로그인</a></li>
+                <li th:if="${loginMember} ==null"><a th:href="@{/member/join}">회원가입</a></li>
             </ul>
         </nav>
     </div>

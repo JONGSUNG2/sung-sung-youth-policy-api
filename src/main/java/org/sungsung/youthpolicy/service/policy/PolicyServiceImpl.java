@@ -39,7 +39,7 @@ public class PolicyServiceImpl implements PolicyService {
 
     @Override
     public List<PolicyListDTO> policyList() {
-        log.info(policyDAO.selectAllPolicy().toString());
+//        log.info(policyDAO.selectAllPolicy().toString());
         return policyDAO.selectAllPolicy();
     }
 

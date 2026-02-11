@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class LoginDTO {
-    private String id;
+    private Long id;
     private String loginId;
     private String pwd;
 }
