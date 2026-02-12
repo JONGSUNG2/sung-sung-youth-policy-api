@@ -2,7 +2,9 @@ package org.sungsung.youthpolicy.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+
 import org.sungsung.youthpolicy.domain.dto.member.LoginDTO;
+import org.sungsung.youthpolicy.domain.dto.member.MemberDetailDTO;
 import org.sungsung.youthpolicy.domain.vo.member.MemberVO;
 import org.sungsung.youthpolicy.mapper.MemberMapper;
 
@@ -17,11 +19,10 @@ public class MemberDAO {
         memberMapper.insertMember(memberVO);
     }
 
-    public LoginDTO selectPwdByLoginId(String loginId){
+    public LoginDTO selectPwdByLoginId(String loginId) {
         return memberMapper.selectPwdByLoginId(loginId);
     }
-
-    public Optional<MemberVO> selectMemberByLoginId(Long id){
-        return memberMapper.selectMemberById(id);
+    public Optional<MemberDetailDTO> selectMemberByLoginId(String id){
+        return memberMapper.selectMemberByLoginId(id);
     }
 }
