@@ -4,9 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.sungsung.youthpolicy.converter.PolicyDataConverter;
-import org.sungsung.youthpolicy.domain.dto.policy.PolicyDTO;
+import org.sungsung.youthpolicy.domain.dto.policy.PolicyListRequestDTO;
+import org.sungsung.youthpolicy.domain.dto.policy.publicData.PolicyDTO;
 import org.sungsung.youthpolicy.domain.dto.policy.PolicyDetailDTO;
-import org.sungsung.youthpolicy.domain.dto.policy.PolicyListDTO;
+import org.sungsung.youthpolicy.domain.dto.policy.PolicyListResponseDTO;
 import org.sungsung.youthpolicy.domain.vo.policy.*;
 import org.sungsung.youthpolicy.repository.PolicyDAO;
 
@@ -18,6 +19,7 @@ public class PolicyServiceImpl implements PolicyService {
 
     private final PolicyDataConverter policyDataConverter;
     private final PolicyDAO policyDAO;
+    public static Integer PAGE_SIZE=5;
     @Override
     //    DB에 공공데이터 넣기
     public void writePublicData(List<PolicyDTO> policyDTOS) {
@@ -38,14 +40,28 @@ public class PolicyServiceImpl implements PolicyService {
     }
 
     @Override
-    public List<PolicyListDTO> policyList() {
-//        log.info(policyDAO.selectAllPolicy().toString());
-        return policyDAO.selectAllPolicy();
+    public List<PolicyListResponseDTO> policyList(PolicyListRequestDTO policyListRequestDTO) {
+
+        if (policyListRequestDTO.getCurrentPage()==null){
+            policyListRequestDTO.setCurrentPage(1);
+        }
+        Integer policyCount = policyDAO.selectPolicyCount();
+        policyListRequestDTO.setTotalPage((policyCount==0)?1:(int)Math.ceil((double)policyCount/PAGE_SIZE));
+
+        Integer pageBlockSize = 5;
+        policyListRequestDTO.setStartPage(Math.max(1,policyListRequestDTO.getCurrentPage()-2));
+        policyListRequestDTO.setEndPage(Math.min(policyListRequestDTO.getTotalPage(),(policyListRequestDTO.getStartPage())+pageBlockSize-1));
+
+        policyListRequestDTO.setPageSize(PAGE_SIZE);
+        policyListRequestDTO.setStartRow((policyListRequestDTO.getCurrentPage()-1)*PAGE_SIZE);
+        log.info(policyListRequestDTO.toString());
+        return policyDAO.selectAllPolicy(policyListRequestDTO);
     }
 
     @Override
     public PolicyDetailDTO policyDetail(String policyId) {
         return policyDAO.selectPolicyDetailById(policyId);
     }
+
 }
 

@@ -1,14 +1,15 @@
-package org.sungsung.youthpolicy.domain.dto.policy;
-
-//사용안하는 필드 무시하기
+package org.sungsung.youthpolicy.domain.dto.policy.publicData;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.util.List;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class RootDTO {
-    @JsonProperty("result")
-    private ResultDTO result;
+public class ResultDTO {
+
+    @JsonProperty("youthPolicyList")
+    private List<PolicyDTO> policyList;
 }

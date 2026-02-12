@@ -3,7 +3,8 @@ package org.sungsung.youthpolicy.repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.sungsung.youthpolicy.domain.dto.policy.PolicyDetailDTO;
-import org.sungsung.youthpolicy.domain.dto.policy.PolicyListDTO;
+import org.sungsung.youthpolicy.domain.dto.policy.PolicyListRequestDTO;
+import org.sungsung.youthpolicy.domain.dto.policy.PolicyListResponseDTO;
 import org.sungsung.youthpolicy.domain.vo.policy.*;
 import org.sungsung.youthpolicy.mapper.PolicyMapper;
 
@@ -31,12 +32,15 @@ public class PolicyDAO {
     }
 
 //    정책 목록
-    public List<PolicyListDTO> selectAllPolicy(){
-        return policyMapper.selectPolicyList();
+    public List<PolicyListResponseDTO> selectAllPolicy(PolicyListRequestDTO policyListRequestDTO){
+        return policyMapper.selectPolicyList(policyListRequestDTO);
     }
 //    정책 상세
     public PolicyDetailDTO selectPolicyDetailById(String policyId){
         return policyMapper.selectPolicyDetailById(policyId);
     }
-
+//    정책 개수
+    public Integer selectPolicyCount(){
+        return policyMapper.selectPolicyCount();
+    }
 }

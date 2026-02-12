@@ -6,7 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.sungsung.youthpolicy.domain.dto.policy.PolicyListDTO;
+import org.sungsung.youthpolicy.domain.dto.policy.PolicyListRequestDTO;
+import org.sungsung.youthpolicy.domain.dto.policy.PolicyListResponseDTO;
 import org.sungsung.youthpolicy.domain.vo.member.MemberVO;
 import org.sungsung.youthpolicy.service.member.MemberService;
 import org.sungsung.youthpolicy.service.policy.PolicyService;
@@ -22,14 +23,15 @@ public class HomeController {
     private final PolicyService policyService;
     private final MemberService memberService;
     @GetMapping("/")
-    public String home(Model model, HttpSession session) {
+    public String home(Model model, HttpSession session, PolicyListRequestDTO  policyListRequestDTO) {
+//요청에 policyListRequest를 보내야함
 
-        List<PolicyListDTO> policyList = policyService.policyList();
+        List<PolicyListResponseDTO> policyList = policyService.policyList(policyListRequestDTO);
         Optional<MemberVO> loginMember = memberService.findMemberById((Long)session.getAttribute("sessionId"));
 
         loginMember.ifPresent(member -> model.addAttribute("loginMember", member));
         model.addAttribute("policyList",policyList);
-
+        model.addAttribute("policyListRequestDTO", policyListRequestDTO);
         return "home";
     }
 }

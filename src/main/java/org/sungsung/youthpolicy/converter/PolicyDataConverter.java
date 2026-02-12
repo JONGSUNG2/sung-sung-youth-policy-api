@@ -2,7 +2,7 @@ package org.sungsung.youthpolicy.converter;
 
 import lombok.Data;
 import org.springframework.stereotype.Service;
-import org.sungsung.youthpolicy.domain.dto.policy.PolicyDTO;
+import org.sungsung.youthpolicy.domain.dto.policy.publicData.PolicyDTO;
 import org.sungsung.youthpolicy.domain.vo.policy.*;
 
 @Data

@@ -81,7 +81,7 @@
 
     <!--    정책 목록 가져오기-->
     <select id="selectPolicyList">
-        SELECT POLICY_ID,POLICY_NAME,DESCRIPTION FROM TBL_POLICY_MASTER;
+        SELECT POLICY_ID,POLICY_NAME,DESCRIPTION FROM TBL_POLICY_MASTER LIMIT #{pageSize} OFfSET #{startRow};
     </select>
     <!--    정책 상세 가져오기-->
     <select id="selectPolicyDetailById">
@@ -89,5 +89,7 @@
         FROM TBL_POLICY_MASTER TPM INNER JOIN TBL_POLICY_APPLICATION TPA
                                               ON TPA.POLICY_ID = TPM.POLICY_ID WHERE TPM.POLICY_ID = #{policyId}
     </select>
-
+    <select id="selectPolicyCount">
+        SELECT COUNT(*) FROM TBL_POLICY_MASTER;
+    </select>
 </mapper>
