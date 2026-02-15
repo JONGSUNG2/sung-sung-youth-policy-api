@@ -38,6 +38,7 @@
             gap: 25px;
         }
 
+
         nav ul li a {
             color: #ffffff;
             text-decoration: none;
@@ -129,6 +130,39 @@
             margin: 0;
             color: #555;
         }
+        .pagination {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .page-btn {
+            padding: 8px 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #333;
+            background: #fff;
+            transition: 0.2s;
+            font-size: 14px;
+        }
+
+        .page-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .page-btn.active {
+            background: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+
+        .page-btn.disabled {
+            color: #aaa;
+            background: #f8f8f8;
+            cursor: not-allowed;
+        }
 
         /* ------ Footer ------ */
         footer {
@@ -138,6 +172,9 @@
             text-align: center;
             color: #555;
         }
+
+
+
     </style>
 </head>
 <body>
@@ -148,19 +185,17 @@
 
         <nav>
             <ul>
-                <div sec:authorize="isAuthenticated()">
-                    <li ><a href="/">AI 맞춤혜택 서비스</a></li>
-                    <li ><a th:href="@{/member/detail}">마이페이지</a></li>
-                    <li ><a th:href="@{/member/logout}">로그아웃</a></li>
-                </div>
+                <!-- 로그인 상태 -->
+                <li sec:authorize="isAuthenticated()"><a href="/">AI 맞춤혜택 서비스</a></li>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/member/detail}">마이페이지</a></li>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/member/logout}">로그아웃</a></li>
 
-                <div sec:authorize="!isAuthenticated()">
-                    <li ><a th:href="@{/member/login}">로그인</a></li>
-                    <li ><a th:href="@{/member/join}">회원가입</a></li>
-                </div>
-
+                <!-- 로그아웃 상태 -->
+                <li sec:authorize="!isAuthenticated()"><a th:href="@{/member/login}">로그인</a></li>
+                <li sec:authorize="!isAuthenticated()"><a th:href="@{/member/join}">회원가입</a></li>
             </ul>
         </nav>
+
     </div>
 </header>
 
@@ -175,10 +210,48 @@
 
     <h2 class="main-title">정책 목록</h2>
 
-    <div class="search-box">
-        <input type="text" placeholder="정책명 또는 키워드를 검색하세요">
-        <button>검색</button>
-    </div>
+
+
+    <form class="search-box" method="get" action="/">
+
+        <input type="text"
+               name="policyName"
+               th:field="${policyCondition.policyName}"
+               placeholder="제목을 검색하세요">
+
+
+        <select th:field="${policyCondition.mainCategory}">
+            <option value="">전체</option>
+
+            <option th:each="c : ${mainCategories}"
+                    th:value="${c.name}"
+                    th:text="${c.name}">
+            </option>
+        </select>
+
+
+
+
+        <select name="addressCode" th:field="${policyCondition.addressCode}">
+            <option value="">전체 지역</option>
+            <option th:each="r : ${regions}"
+                    th:value="${r.code}"
+                    th:text="${r.name}">
+            </option>
+        </select>
+
+
+
+
+
+
+
+        <button type="submit">검색</button>
+    </form>
+
+
+
+
 
     <ul class="policy-list">
         <li class="policy-item" th:each="policy:${policyList}">
@@ -186,6 +259,30 @@
             <p th:text="${policy.description}">정책 설명 표시</p>
         </li>
     </ul>
+    <div class="pagination" th:object="${policyListRequestDTO}">
+
+        <!-- 이전 버튼 -->
+        <a th:if="*{currentPage>1}" th:href="@{/(currentPage=${policyListRequestDTO.currentPage - 1}, addressCode=${policyCondition.addressCode})}"
+           th:class="'page-btn ' + (${policyListRequestDTO.currentPage} == 1 ? 'disabled' : '')">
+            이전
+        </a>
+
+        <!-- 페이지 번호 -->
+        <a th:each="i : ${#numbers.sequence(policyListRequestDTO.startPage, policyListRequestDTO.endPage)}"
+           th:href="@{/(currentPage=${i},
+                        addressCode=${policyCondition.addressCode})}"
+           th:text="${i}"
+           th:class="'page-btn ' + (${i} == ${policyListRequestDTO.currentPage} ? 'active' : '')">
+        </a>
+
+        <!-- 다음 버튼 -->
+        <a th:if="*{currentPage<totalPage}" th:href="@{/(currentPage=${policyListRequestDTO.currentPage + 1}, addressCode=${policyCondition.addressCode})}"
+           th:class="'page-btn ' + (${policyListRequestDTO.currentPage} == ${policyListRequestDTO.totalPage} ? 'disabled' : '')">
+            다음
+        </a>
+
+    </div>
+
 </div>
 
 <footer>
@@ -193,4 +290,6 @@
 </footer>
 
 </body>
+<script>
+</script>
 </html>

@@ -7,8 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.sungsung.youthpolicy.converter.PolicyDataConverter;
-import org.sungsung.youthpolicy.domain.dto.policy.PolicyDTO;
-import org.sungsung.youthpolicy.domain.dto.policy.RootDTO;
+import org.sungsung.youthpolicy.domain.dto.policy.publicData.PolicyDTO;
+import org.sungsung.youthpolicy.domain.dto.policy.publicData.RootDTO;
 import org.sungsung.youthpolicy.domain.vo.policy.*;
 import org.sungsung.youthpolicy.repository.PolicyDAO;
 
@@ -34,11 +34,11 @@ public class PublicDataService {
         String url2 = "https://www.youthcenter.go.kr/go/ythip/getPlcy"
                 +"?apiKeyNm=33142eb1-009c-4456-bb7d-c7887f95bca8"
                 +"&pageNum=1"
-                +"&pageSize=20"
+                +"&pageSize=40"
                 +"&returnType=JSON";
 
         RestTemplate restTemplate = new RestTemplate();
-        String json =  restTemplate.getForObject(url2, String.class);;
+        String json =  restTemplate.getForObject(url2, String.class);
 
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(json, RootDTO.class);

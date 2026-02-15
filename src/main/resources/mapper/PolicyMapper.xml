@@ -81,7 +81,25 @@
 
     <!--    정책 목록 가져오기-->
     <select id="selectPolicyList">
-        SELECT POLICY_ID,POLICY_NAME,DESCRIPTION FROM TBL_POLICY_MASTER;
+        SELECT POLICY_ID,POLICY_NAME,DESCRIPTION FROM TBL_POLICY_MASTER
+                                                 WHERE 1=1
+                                                 <if test="policyCondition.addressCode != null and policyCondition.addressCode != ''">
+                                                     AND ADDRESS_CODE LIKE CONCAT(
+                                                     #{policyCondition.addressCode},
+                                                     '%'
+                                                     )
+                                                 </if>
+
+
+                                                <if test="policyCondition.mainCategory != null and policyCondition.mainCategory != ''">
+                                                    AND MAIN_CATEGORY LIKE CONCAT('%', #{policyCondition.mainCategory}, '%')
+                                                </if>
+
+                                                <if test="policyCondition.policyName != null and policyCondition.policyName != ''">
+                                                    ANd POLICY_NAME LIKE CONCAT('%', #{policyCondition.policyName}, '%')
+                                                </if>
+
+                                                 LIMIT #{policyListRequestDTO.pageSize} OFFSET #{policyListRequestDTO.startRow};
     </select>
     <!--    정책 상세 가져오기-->
     <select id="selectPolicyDetailById">
@@ -89,5 +107,23 @@
         FROM TBL_POLICY_MASTER TPM INNER JOIN TBL_POLICY_APPLICATION TPA
                                               ON TPA.POLICY_ID = TPM.POLICY_ID WHERE TPM.POLICY_ID = #{policyId}
     </select>
+    <select id="selectPolicyCount">
+        SELECT COUNT(*) FROM TBL_POLICY_MASTER
+                        WHERE 1=1
+        <if test="addressCode != null and addressCode != ''">
+            AND ADDRESS_CODE LIKE CONCAT(
+            #{addressCode},
+            '%'
+            )
+        </if>
 
+
+        <if test="mainCategory != null and mainCategory != ''">
+            AND MAIN_CATEGORY LIKE CONCAT('%', #{mainCategory}, '%')
+        </if>
+
+        <if test="policyName != null and policyName != ''">
+            ANd POLICY_NAME LIKE CONCAT('%', #{policyName}, '%')
+        </if>
+    </select>
 </mapper>
