@@ -210,8 +210,6 @@
 
     <h2 class="main-title">정책 목록</h2>
 
-
-
     <form class="search-box" method="get" action="/">
 
         <input type="text"
@@ -229,9 +227,6 @@
             </option>
         </select>
 
-
-
-
         <select name="addressCode" th:field="${policyCondition.addressCode}">
             <option value="">전체 지역</option>
             <option th:each="r : ${regions}"
@@ -240,17 +235,8 @@
             </option>
         </select>
 
-
-
-
-
-
-
         <button type="submit">검색</button>
     </form>
-
-
-
 
 
     <ul class="policy-list">

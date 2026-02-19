@@ -82,24 +82,24 @@
     <!--    정책 목록 가져오기-->
     <select id="selectPolicyList">
         SELECT POLICY_ID,POLICY_NAME,DESCRIPTION FROM TBL_POLICY_MASTER
-                                                 WHERE 1=1
-                                                 <if test="policyCondition.addressCode != null and policyCondition.addressCode != ''">
-                                                     AND ADDRESS_CODE LIKE CONCAT(
-                                                     #{policyCondition.addressCode},
-                                                     '%'
-                                                     )
-                                                 </if>
+             WHERE 1=1
+             <if test="policyCondition.addressCode != null and policyCondition.addressCode != ''">
+                 AND ADDRESS_CODE LIKE CONCAT(
+                 #{policyCondition.addressCode},
+                 '%'
+                 )
+             </if>
 
 
-                                                <if test="policyCondition.mainCategory != null and policyCondition.mainCategory != ''">
-                                                    AND MAIN_CATEGORY LIKE CONCAT('%', #{policyCondition.mainCategory}, '%')
-                                                </if>
+            <if test="policyCondition.mainCategory != null and policyCondition.mainCategory != ''">
+                AND MAIN_CATEGORY LIKE CONCAT('%', #{policyCondition.mainCategory}, '%')
+            </if>
 
-                                                <if test="policyCondition.policyName != null and policyCondition.policyName != ''">
-                                                    ANd POLICY_NAME LIKE CONCAT('%', #{policyCondition.policyName}, '%')
-                                                </if>
+            <if test="policyCondition.policyName != null and policyCondition.policyName != ''">
+                ANd POLICY_NAME LIKE CONCAT('%', #{policyCondition.policyName}, '%')
+            </if>
 
-                                                 LIMIT #{policyListRequestDTO.pageSize} OFFSET #{policyListRequestDTO.startRow};
+             LIMIT #{policyListRequestDTO.pageSize} OFFSET #{policyListRequestDTO.startRow};
     </select>
     <!--    정책 상세 가져오기-->
     <select id="selectPolicyDetailById">
