@@ -22,7 +22,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/member/login", "/member/join", "/", "/policy/detail/*").permitAll()
+                        .requestMatchers("/member/login", "/member/join", "/","/policy/policyList","/policy/policyList/*", "/policy/detail/*").permitAll()
                         .anyRequest().authenticated()
                 )
 
@@ -31,7 +31,7 @@ public class SecurityConfig {
                         .usernameParameter("loginId")
                         .passwordParameter("pwd")
                         .loginProcessingUrl("/member/login")
-                        .defaultSuccessUrl("/")
+                        .defaultSuccessUrl("/",false)
                         .failureUrl("/member/login?error=true")
                         .permitAll()
                 )

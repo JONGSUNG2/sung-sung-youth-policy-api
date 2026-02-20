@@ -9,53 +9,59 @@
         body {
             margin: 0;
             font-family: 'Inter', Arial, sans-serif;
-            background: #f3f4f7;
+            background-color: #f3f4f7;
             color: #333;
             line-height: 1.55;
         }
 
-        /* ------ Header / Navigation ------ */
+        /* ===== HEADER ===== */
         header {
-            background-color: #2d68ff;
-            padding: 15px 20px;
-            color: #fff;
+            background-color: white;
+            border-bottom: 1px solid #e6e9f0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 14px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
+            color: #2d68ff;
             font-size: 22px;
-            font-weight: bold;
+            font-weight: 700;
+            text-decoration: none;
         }
 
         nav ul {
             list-style: none;
-            margin: 0;
-            padding: 0;
             display: flex;
-            gap: 25px;
+            gap: 28px;
+            padding: 0;
+            margin: 0;
         }
 
-
         nav ul li a {
-            color: #ffffff;
-            text-decoration: none;
+            color: #333;
             font-size: 16px;
+            text-decoration: none;
             font-weight: 500;
         }
 
         nav ul li a:hover {
-            text-decoration: underline;
+            color: #2d68ff;
         }
 
-
+        /* 메인 */
         .main {
             max-width: 900px;
-            margin: 60px auto;
+            margin: 50px auto;
             padding: 0 20px;
         }
 
@@ -78,7 +84,6 @@
         .meta {
             color: #666;
             font-size: 15px;
-            margin-top: 6px;
         }
 
         /* 공통 카드 */
@@ -119,23 +124,35 @@
         a:hover {
             text-decoration: underline;
         }
+
+        /* footer */
+        footer {
+            background: white;
+            padding: 20px;
+            margin-top: 50px;
+            border-top: 1px solid #e6e9f0;
+            text-align: center;
+            color: #777;
+        }
     </style>
+</head>
 
 <body>
 
+<!-- HEADER -->
 <header>
     <div class="nav-container">
-        <div class="logo">정책지원 서비스</div>
+
+        <a href="/" class="logo">청년 정책지원</a>
 
         <nav>
             <ul>
-                <li><a th:href="@{/}">정책 목록</a></li>
-                <!-- 로그인 상태 -->
-                <li sec:authorize="isAuthenticated()"><a href="/">AI 맞춤혜택 서비스</a></li>
+                <li><a th:href="@{/policy/policyList}">정책 목록</a></li>
+
+                <li sec:authorize="isAuthenticated()"><a href="/">AI 맞춤혜택</a></li>
                 <li sec:authorize="isAuthenticated()"><a th:href="@{/member/detail}">마이페이지</a></li>
                 <li sec:authorize="isAuthenticated()"><a th:href="@{/member/logout}">로그아웃</a></li>
 
-                <!-- 로그아웃 상태 -->
                 <li sec:authorize="!isAuthenticated()"><a th:href="@{/member/login}">로그인</a></li>
                 <li sec:authorize="!isAuthenticated()"><a th:href="@{/member/join}">회원가입</a></li>
             </ul>
@@ -143,6 +160,9 @@
 
     </div>
 </header>
+
+
+<!-- MAIN -->
 <div class="main">
 
     <!-- 제목 박스 -->
@@ -225,6 +245,8 @@
     </div>
 
 </div>
+
+<footer>© 2026 정책지원 서비스</footer>
 
 </body>
 </html>

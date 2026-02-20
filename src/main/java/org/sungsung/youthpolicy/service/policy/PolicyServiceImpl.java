@@ -58,7 +58,6 @@ public class PolicyServiceImpl implements PolicyService {
 
         policyListRequestDTO.setPageSize(PAGE_SIZE);
         policyListRequestDTO.setStartRow((policyListRequestDTO.getCurrentPage()-1)*PAGE_SIZE);
-        log.info(policyListRequestDTO.toString());
         return policyDAO.selectAllPolicy(policyListRequestDTO, policyCondition);
     }
 
