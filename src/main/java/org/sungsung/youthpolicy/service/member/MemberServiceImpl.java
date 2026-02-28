@@ -23,6 +23,8 @@ public class MemberServiceImpl implements MemberService {
     public void insert(MemberVO memberVO) {
         String encodedPwd = passwordEncoder.encode(memberVO.getPassword());
         memberVO.setPassword(encodedPwd);
+        memberVO.setProvider("local");
+        memberVO.setRole("admin");
         memberDAO.insert(memberVO);
     }
 
