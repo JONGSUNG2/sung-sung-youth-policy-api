@@ -65,7 +65,8 @@
 
     <div class="row">
         <span class="label">로그인 ID:</span>
-        <span th:text="${member.loginId}"></span>
+        <span th:if="${member.provider=='local'}" th:text="${member.loginId}"></span>
+        <span th:if="${member.provider=='kakao'}" th:text="${member.email}"></span>
     </div>
 
     <div class="row">
