@@ -6,9 +6,7 @@ CREATE TABLE TBL_MEMBER(
                            LOGIN_ID VARCHAR(255) UNIQUE NOT NULL,
                            PASSWORD VARCHAR(255),
                            PROVIDER VARCHAR2(25),
-                           PROVIDER_ID varchar2(255),
                            ROLE varchar2(25)
-
 );
 
 SELECT * FROM TBL_MEMBER;
