@@ -4,12 +4,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.sungsung.youthpolicy.converter.PolicyDataConverter;
+import org.sungsung.youthpolicy.domain.dto.member.MemberPlusDTO;
 import org.sungsung.youthpolicy.domain.dto.policy.PolicyCondition;
 import org.sungsung.youthpolicy.domain.dto.policy.PolicyListRequestDTO;
 import org.sungsung.youthpolicy.domain.dto.policy.publicData.PolicyDTO;
 import org.sungsung.youthpolicy.domain.dto.policy.PolicyDetailDTO;
 import org.sungsung.youthpolicy.domain.dto.policy.PolicyListResponseDTO;
 import org.sungsung.youthpolicy.domain.vo.policy.*;
+import org.sungsung.youthpolicy.repository.MemberDAO;
 import org.sungsung.youthpolicy.repository.PolicyDAO;
 
 import java.util.List;
@@ -20,6 +22,7 @@ public class PolicyServiceImpl implements PolicyService {
 
     private final PolicyDataConverter policyDataConverter;
     private final PolicyDAO policyDAO;
+    private final MemberDAO memberDAO;
     public static Integer PAGE_SIZE=5;
     @Override
     //    DB에 공공데이터 넣기
@@ -65,6 +68,9 @@ public class PolicyServiceImpl implements PolicyService {
     public PolicyDetailDTO policyDetail(String policyId) {
         return policyDAO.selectPolicyDetailById(policyId);
     }
+
+
+
 
 }
 

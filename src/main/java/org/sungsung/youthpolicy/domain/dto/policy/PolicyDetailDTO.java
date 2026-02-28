@@ -69,7 +69,7 @@ public class PolicyDetailDTO {
     public String formatStartDate() {
         DateTimeFormatter input = DateTimeFormatter.ofPattern("yyyyMMdd");
         DateTimeFormatter output = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
-        if (this.businessStartDate.isEmpty()){
+        if (this.businessStartDate.isEmpty() || this.businessStartDate.isBlank()){
             this.businessStartDate = "-";
             return this.businessStartDate;
         }
@@ -78,7 +78,7 @@ public class PolicyDetailDTO {
     public String formatEndDate() {
         DateTimeFormatter input = DateTimeFormatter.ofPattern("yyyyMMdd");
         DateTimeFormatter output = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
-        if(this.businessEndDate.isEmpty()){
+        if(this.businessEndDate.isEmpty() || this.businessEndDate.isBlank()){
             this.businessEndDate = "-";
             return this.businessEndDate;
         }

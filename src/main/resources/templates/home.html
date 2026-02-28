@@ -192,7 +192,7 @@
         <nav>
             <ul>
                 <li><a th:href="@{/policy/policyList}">정책목록</a></li>
-                <li sec:authorize="isAuthenticated()"><a href="/">AI 맞춤혜택</a></li>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/policy/recommend}">AI 맞춤혜택</a></li>
                 <li sec:authorize="isAuthenticated()"><a th:href="@{/member/detail}">마이페이지</a></li>
                 <li sec:authorize="isAuthenticated()"><a th:href="@{/member/logout}">로그아웃</a></li>
 

@@ -1,5 +1,6 @@
 package org.sungsung.youthpolicy.service.policy;
 
+import org.sungsung.youthpolicy.domain.dto.member.MemberPlusDTO;
 import org.sungsung.youthpolicy.domain.dto.policy.PolicyCondition;
 import org.sungsung.youthpolicy.domain.dto.policy.PolicyListRequestDTO;
 import org.sungsung.youthpolicy.domain.dto.policy.publicData.PolicyDTO;
@@ -15,4 +16,7 @@ public interface PolicyService {
     public List<PolicyListResponseDTO> policyList(PolicyListRequestDTO policyListRequestDTO,  PolicyCondition policyCondition);
     //    정책 상세
     public PolicyDetailDTO policyDetail(String policyId);
+
+    //정책 추천
+//    public List<PolicyListResponseDTO> policyRecommend(MemberPlusDTO memberPlusDTO);
 }

@@ -142,4 +142,21 @@
             ANd POLICY_NAME LIKE CONCAT('%', #{policyName}, '%')
         </if>
     </select>
+
+
+<!--정책 추천 -->
+
+    <select id="recommendPolicyList">
+        SELECT TPM.POLICY_ID
+
+        FROM TBL_POLICY_MASTER TPM
+        INNER JOIN TBL_POLICY_ELIGIBILITY TPE ON TPM.POLICY_ID = TPE.POLICY_ID
+        WHERE TPM.MAIN_CATEGORY = #{mainCategory}
+        AND TPM.ADDRESS_CODE LIKE CONCAT('%', #{region}, '%')
+        AND (TPE.AGE_LIMIT_FLAG = 'Y'
+        OR (TPE.AGE_LIMIT_FLAG = 'N'
+            AND #{age} BETWEEN TPE.MIN_AGE AND TPE.MAX_AGE)
+        )
+        AND TPE.MARRY_STATUS_CODE = 0055003
+    </select>
 </mapper>
