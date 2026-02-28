@@ -12,7 +12,7 @@ public interface MemberService {
 
     public MemberPlusDTO checkMemberPlus(String memberId);
 
-    void insertMemberPlus(MemberPlusDTO memberPlusDTO, String memberLoginId);
+//    void insertMemberPlus(MemberPlusDTO memberPlusDTO, String memberLoginId);
 
 
 

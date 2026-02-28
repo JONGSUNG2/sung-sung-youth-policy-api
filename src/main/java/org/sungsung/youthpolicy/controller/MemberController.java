@@ -55,22 +55,22 @@ public class MemberController {
         return "member/detail";
     }
 
-    @GetMapping("/memberPlus")
-    public String joinMemberPlus(Principal principal, Model model, @RequestParam("name") String name) {
-        MemberPlusVO memberPlus = new MemberPlusVO();
-        memberPlus.setMemberId(principal.getName());
-        model.addAttribute("memberName", name);
-        model.addAttribute("mainCategories", MainCategory.values());
-        model.addAttribute("regions", Region.values());
-        model.addAttribute("memberPlus", memberPlus);
-        return "/member/memberPlus";
-    }
+//    @GetMapping("/memberPlus")
+//    public String joinMemberPlus(Principal principal, Model model, @RequestParam("name") String name) {
+//        MemberPlusVO memberPlus = new MemberPlusVO();
+//        memberPlus.setMemberId(principal.getName());
+//        model.addAttribute("memberName", name);
+//        model.addAttribute("mainCategories", MainCategory.values());
+//        model.addAttribute("regions", Region.values());
+//        model.addAttribute("memberPlus", memberPlus);
+//        return "/member/memberPlus";
+//    }
 
-    @PostMapping("/memberPlus")
-    public String joinMemberPlus(@ModelAttribute MemberPlusDTO memberPlusDTO, Model model, Principal principal) {
-        memberService.insertMemberPlus(memberPlusDTO, principal.getName());
-        log.info("joinMemberPlus{}", memberPlusDTO);
-        return "redirect:/policy/recommend";
-    }
+//    @PostMapping("/memberPlus")
+//    public String joinMemberPlus(@ModelAttribute MemberPlusDTO memberPlusDTO, Model model, Principal principal) {
+//        memberService.insertMemberPlus(memberPlusDTO, principal.getName());
+//        log.info("joinMemberPlus{}", memberPlusDTO);
+//        return "redirect:/policy/recommend";
+//    }
 
 }

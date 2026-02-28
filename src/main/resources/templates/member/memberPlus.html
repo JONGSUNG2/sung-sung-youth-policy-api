@@ -92,9 +92,9 @@
             </p>
         </div>
 
-        <form th:action="@{/member/memberPlus}" th:object="${memberPlus}" method="post">
+        <form th:action="@{/policy/recommend}" th:object="${PolicyRecommendDTO}" method="post">
 
-            <input type="hidden" th:field="*{memberId}" />
+<!--            <input type="hidden" th:field="*{memberLoginId}" />-->
 
             <!-- 나이 -->
             <div class="form-group">

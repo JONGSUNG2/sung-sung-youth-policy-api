@@ -44,14 +44,14 @@ public class MemberServiceImpl implements MemberService {
 
     }
 
-    @Override
-    public void insertMemberPlus(MemberPlusDTO memberPlusDTO, String memberLoginId) {
-        MemberPlusVO memberPlusVO = new MemberPlusVO(memberPlusDTO);
-        String memberId = memberDAO.selectIdByLoginId(memberLoginId);
-        memberPlusVO.setMemberId(memberId);
-
-        memberDAO.insertMemberPlus(memberPlusVO);
-    }
+//    @Override
+//    public void insertMemberPlus(MemberPlusDTO memberPlusDTO, String memberLoginId) {
+//        MemberPlusVO memberPlusVO = new MemberPlusVO(memberPlusDTO);
+//        String memberId = memberDAO.selectIdByLoginId(memberLoginId);
+//        memberPlusVO.setMemberId(memberId);
+//
+//        memberDAO.insertMemberPlus(memberPlusVO);
+//    }
 
 
 }

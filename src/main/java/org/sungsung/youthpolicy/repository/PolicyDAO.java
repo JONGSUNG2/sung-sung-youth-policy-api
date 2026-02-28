@@ -2,10 +2,7 @@ package org.sungsung.youthpolicy.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import org.sungsung.youthpolicy.domain.dto.policy.PolicyCondition;
-import org.sungsung.youthpolicy.domain.dto.policy.PolicyDetailDTO;
-import org.sungsung.youthpolicy.domain.dto.policy.PolicyListRequestDTO;
-import org.sungsung.youthpolicy.domain.dto.policy.PolicyListResponseDTO;
+import org.sungsung.youthpolicy.domain.dto.policy.*;
 import org.sungsung.youthpolicy.domain.vo.policy.*;
 import org.sungsung.youthpolicy.mapper.PolicyMapper;
 
@@ -43,5 +40,10 @@ public class PolicyDAO {
 //    정책 개수
     public Integer selectPolicyCount(PolicyCondition policyCondition){
         return policyMapper.selectPolicyCount(policyCondition);
+    }
+
+//    정책 추천 목록
+    public List<PolicyListResponseDTO> recommendPolicyList(PolicyRecommendDTO policyRecommendDTO){
+        return policyMapper.recommendPolicyList(policyRecommendDTO);
     }
 }

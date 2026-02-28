@@ -1,11 +1,8 @@
 package org.sungsung.youthpolicy.service.policy;
 
 import org.sungsung.youthpolicy.domain.dto.member.MemberPlusDTO;
-import org.sungsung.youthpolicy.domain.dto.policy.PolicyCondition;
-import org.sungsung.youthpolicy.domain.dto.policy.PolicyListRequestDTO;
+import org.sungsung.youthpolicy.domain.dto.policy.*;
 import org.sungsung.youthpolicy.domain.dto.policy.publicData.PolicyDTO;
-import org.sungsung.youthpolicy.domain.dto.policy.PolicyDetailDTO;
-import org.sungsung.youthpolicy.domain.dto.policy.PolicyListResponseDTO;
 
 import java.util.List;
 
@@ -18,5 +15,5 @@ public interface PolicyService {
     public PolicyDetailDTO policyDetail(String policyId);
 
     //정책 추천
-//    public List<PolicyListResponseDTO> policyRecommend(MemberPlusDTO memberPlusDTO);
+    public List<PolicyListResponseDTO> policyRecommend(PolicyRecommendDTO policyRecommendDTO);
 }

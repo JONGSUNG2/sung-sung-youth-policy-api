@@ -16,10 +16,12 @@ public class MemberPlusVO {
     }
 
     private int id;
-    private String memberId;
+    private String memberLoginId;
     private String age;
     private String region;
     private String mainCategory;
     private String marriage;
+
+
 
 }

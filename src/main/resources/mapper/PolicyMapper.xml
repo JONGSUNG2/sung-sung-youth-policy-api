@@ -147,7 +147,7 @@
 <!--정책 추천 -->
 
     <select id="recommendPolicyList">
-        SELECT TPM.POLICY_ID
+        SELECT TPM.POLICY_ID, TPM.POLICY_NAME, TPM.DESCRIPTION
 
         FROM TBL_POLICY_MASTER TPM
         INNER JOIN TBL_POLICY_ELIGIBILITY TPE ON TPM.POLICY_ID = TPE.POLICY_ID
@@ -157,6 +157,9 @@
         OR (TPE.AGE_LIMIT_FLAG = 'N'
             AND #{age} BETWEEN TPE.MIN_AGE AND TPE.MAX_AGE)
         )
-        AND TPE.MARRY_STATUS_CODE = 0055003
+        AND(TPE.MARRY_STATUS_CODE = 0055003
+            OR (TPE.MARRY_STATUS_CODE = #{marriage}))
+        LIMIT 3
+
     </select>
 </mapper>
