@@ -39,7 +39,8 @@ dependencies {
 
     //html 세션인증
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
-
+    //OAUTH2 로그인
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 }
 
 tasks.named('test') {

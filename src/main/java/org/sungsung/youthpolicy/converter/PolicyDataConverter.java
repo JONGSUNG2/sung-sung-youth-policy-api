@@ -8,63 +8,78 @@ import org.sungsung.youthpolicy.domain.vo.policy.*;
 @Data
 @Service
 public class PolicyDataConverter {
+
     public PolicyMasterVO toPolicyMaster(PolicyDTO policyDTO) {
-        PolicyMasterVO policyMasterVO = new PolicyMasterVO();
-        policyMasterVO.setPolicyId(policyDTO.getPolicyId());
-        policyMasterVO.setPolicyName(policyDTO.getPolicyName());
-        policyMasterVO.setKeyword(policyDTO.getKeyword());
-        policyMasterVO.setDescription(policyDTO.getDescription());
-        policyMasterVO.setMainCategory(policyDTO.getMainCategory());
-        policyMasterVO.setSubCategory(policyDTO.getSubCategory());
-        policyMasterVO.setAddressCode(policyDTO.getAddressCode());
-        policyMasterVO.setRegion(policyDTO.getRegion());
-        policyMasterVO.setAdminName(policyDTO.getAdminName());
-        return policyMasterVO;
+        PolicyMasterVO vo = new PolicyMasterVO();
+        vo.setPolicyId(clean(policyDTO.getPolicyId()));
+        vo.setPolicyName(clean(policyDTO.getPolicyName()));
+        vo.setKeyword(clean(policyDTO.getKeyword()));
+        vo.setDescription(clean(policyDTO.getDescription()));
+        vo.setMainCategory(clean(policyDTO.getMainCategory()));
+        vo.setSubCategory(clean(policyDTO.getSubCategory()));
+        vo.setAddressCode(clean(policyDTO.getAddressCode()));
+        vo.setRegion(clean(policyDTO.getRegion()));
+        vo.setAdminName(clean(policyDTO.getAdminName()));
+        return vo;
     }
+
     public PolicySupportVO toPolicySupport(PolicyDTO policyDTO){
-        PolicySupportVO policySupportVO = new PolicySupportVO();
-        policySupportVO.setPolicyId(policyDTO.getPolicyId());
-        policySupportVO.setSupportSummary(policyDTO.getSupportSummary());
-        policySupportVO.setSupportMethodCode(policyDTO.getSupportMethodCode());
-        policySupportVO.setApprovalStatusCode(policyDTO.getApprovalStatusCode());
-        policySupportVO.setSupportLimitFlag(policyDTO.getSupportLimitFlag());
-        policySupportVO.setSupportCount(Integer.parseInt(policyDTO.getSupportCount()));
-        policySupportVO.setFirstComeFlag(policyDTO.getFirstComeFlag());
-        return policySupportVO;
-
+        PolicySupportVO vo = new PolicySupportVO();
+        vo.setPolicyId(clean(policyDTO.getPolicyId()));
+        vo.setSupportSummary(clean(policyDTO.getSupportSummary()));
+        vo.setSupportMethodCode(clean(policyDTO.getSupportMethodCode()));
+        vo.setApprovalStatusCode(clean(policyDTO.getApprovalStatusCode()));
+        vo.setSupportLimitFlag(clean(policyDTO.getSupportLimitFlag()));
+        vo.setSupportCount(Integer.parseInt(clean(policyDTO.getSupportCount())));
+        vo.setFirstComeFlag(clean(policyDTO.getFirstComeFlag()));
+        return vo;
     }
+
     public PolicyBusinessPeriodVO toPolicyBusinessPeriod(PolicyDTO policyDTO){
-        PolicyBusinessPeriodVO policyBusinessPeriodVO = new PolicyBusinessPeriodVO();
-        policyBusinessPeriodVO.setPolicyId(policyDTO.getPolicyId());
-        policyBusinessPeriodVO.setBusinessPeriodCode(policyDTO.getBusinessPeriodCode());
-        policyBusinessPeriodVO.setApplyPeriodCode(policyDTO.getApplyPeriodCode());
-        policyBusinessPeriodVO.setBusinessStartDate(policyDTO.getBusinessStartDate());
-        policyBusinessPeriodVO.setBusinessEndDate(policyDTO.getBusinessEndDate());
-        policyBusinessPeriodVO.setBusinessPeriodType(policyDTO.getBusinessPeriodType());
-        return policyBusinessPeriodVO;
+        PolicyBusinessPeriodVO vo = new PolicyBusinessPeriodVO();
+        vo.setPolicyId(clean(policyDTO.getPolicyId()));
+        vo.setBusinessPeriodCode(clean(policyDTO.getBusinessPeriodCode()));
+        vo.setApplyPeriodCode(clean(policyDTO.getApplyPeriodCode()));
+        vo.setBusinessStartDate(clean(policyDTO.getBusinessStartDate()));
+        vo.setBusinessEndDate(clean(policyDTO.getBusinessEndDate()));
+        vo.setBusinessPeriodType(clean(policyDTO.getBusinessPeriodType()));
+        return vo;
     }
-    public PolicyApplicationVO toPolicyApplication(PolicyDTO policyDTO){
-        PolicyApplicationVO policyApplicationVO = new PolicyApplicationVO();
-        policyApplicationVO.setPolicyId(policyDTO.getPolicyId());
-        policyApplicationVO.setApplyMethod(policyDTO.getApplyMethod());
-        policyApplicationVO.setApplyUrl(policyDTO.getApplyUrl());
-        policyApplicationVO.setSubmissionDocuments(policyDTO.getSubmissionDocuments());
-        policyApplicationVO.setEtcNotes(policyDTO.getEtcNotes());
-        policyApplicationVO.setReferenceUrl1(policyDTO.getReferenceUrl1());
-        policyApplicationVO.setReferenceUrl2(policyDTO.getReferenceUrl2());
-        return policyApplicationVO;
-    }
-    public PolicyEligibilityVO toPolicyEligibility(PolicyDTO policyDTO){
-        PolicyEligibilityVO policyEligibilityVO = new PolicyEligibilityVO();
-        policyEligibilityVO.setPolicyId(policyDTO.getPolicyId());
-        policyEligibilityVO.setMinAge(Integer.parseInt(policyDTO.getMinAge()));
-        policyEligibilityVO.setMaxAge(Integer.parseInt(policyDTO.getMaxAge()));
-        policyEligibilityVO.setAgeLimitFlag(policyDTO.getAgeLimitFlag());
-        policyEligibilityVO.setMarryStatusCode(policyDTO.getMarryStatusCode());
-        policyEligibilityVO.setIncomeConditionCode(policyDTO.getIncomeConditionCode());
-        policyEligibilityVO.setAdditionalQualification(policyDTO.getAdditionalQualification());
-        policyEligibilityVO.setParticipantTargetText(policyDTO.getParticipantTargetText());
-        return policyEligibilityVO;
 
+    public PolicyApplicationVO toPolicyApplication(PolicyDTO policyDTO){
+        PolicyApplicationVO vo = new PolicyApplicationVO();
+        vo.setPolicyId(clean(policyDTO.getPolicyId()));
+        vo.setApplyMethod(clean(policyDTO.getApplyMethod()));
+        vo.setApplyUrl(clean(policyDTO.getApplyUrl()));
+        vo.setSubmissionDocuments(clean(policyDTO.getSubmissionDocuments()));
+        vo.setEtcNotes(clean(policyDTO.getEtcNotes()));
+        vo.setReferenceUrl1(clean(policyDTO.getReferenceUrl1()));
+        vo.setReferenceUrl2(clean(policyDTO.getReferenceUrl2()));
+        return vo;
+    }
+
+    public PolicyEligibilityVO toPolicyEligibility(PolicyDTO policyDTO){
+        PolicyEligibilityVO vo = new PolicyEligibilityVO();
+        vo.setPolicyId(clean(policyDTO.getPolicyId()));
+        vo.setMinAge(parseIntSafe(policyDTO.getMinAge()));
+        vo.setMaxAge(parseIntSafe(policyDTO.getMaxAge()));
+        vo.setAgeLimitFlag(clean(policyDTO.getAgeLimitFlag()));
+        vo.setMarryStatusCode(clean(policyDTO.getMarryStatusCode()));
+        vo.setIncomeConditionCode(clean(policyDTO.getIncomeConditionCode()));
+        vo.setAdditionalQualification(clean(policyDTO.getAdditionalQualification()));
+        vo.setParticipantTargetText(clean(policyDTO.getParticipantTargetText()));
+        return vo;
+    }
+
+//    문자열 공백 제거
+    private String clean(String data) {
+        return (data == null) ? null : data.trim();
+    }
+
+//    안전한 숫자 변환 (공백/NULL 처리됨)
+    private int parseIntSafe(String data) {
+        data = clean(data);
+        if (data == null || data.isEmpty()) return 0;
+        return Integer.parseInt(data);
     }
 }

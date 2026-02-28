@@ -3,13 +3,24 @@ package org.sungsung.youthpolicy.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.sungsung.youthpolicy.domain.dto.policy.PolicyCondition;
+import org.sungsung.youthpolicy.domain.dto.policy.PolicyListRequestDTO;
+import org.sungsung.youthpolicy.domain.dto.policy.PolicyListResponseDTO;
+import org.sungsung.youthpolicy.domain.dto.policy.config.MainCategory;
+import org.sungsung.youthpolicy.domain.dto.policy.config.Region;
+import org.sungsung.youthpolicy.service.member.CustomUserDetailsService;
+import org.sungsung.youthpolicy.service.member.MemberService;
 import org.sungsung.youthpolicy.service.policy.PolicyService;
 
+import java.util.List;
 
 
 @Controller
@@ -19,10 +30,37 @@ import org.sungsung.youthpolicy.service.policy.PolicyService;
 public class PolicyController {
 
     private final PolicyService policyService;
+    private final MemberService memberService;
     @GetMapping("/detail/{policyId}")
     public String policyDetailPage(@PathVariable("policyId")String policyId, Model model){
-
         model.addAttribute("policy", policyService.policyDetail(policyId));
         return "policy/policyDetail";
     }
+    @GetMapping("policyList")
+    public String policyListPage(Model model, PolicyListRequestDTO policyListRequestDTO, PolicyCondition policyCondition){
+
+        List<PolicyListResponseDTO> policyList = policyService.policyList(policyListRequestDTO, policyCondition);
+        model.addAttribute("policyCondition", policyCondition);
+        model.addAttribute("regions", Region.values());
+        model.addAttribute("mainCategories", MainCategory.values());
+
+        model.addAttribute("policyList",policyList);
+        model.addAttribute("policyListRequestDTO", policyListRequestDTO);
+        model.addAttribute("policyCondition", policyCondition);
+        return "policy/policyList";
+    }
+
+    @GetMapping("recommend")
+    public String policyRecommendPage(Model model, Authentication user, RedirectAttributes redirectAttributes){
+
+        if(memberService.checkMemberPlus(user.getName()).getAge()==null){
+            redirectAttributes.addAttribute("name", memberService.checkMemberPlus(user.getName()).getName());
+            return "redirect:/member/memberPlus";
+        }
+
+        log.info("---------USER  {}", user.getName() );
+        return "policy/recommendedList";
+    }
+
+
 }

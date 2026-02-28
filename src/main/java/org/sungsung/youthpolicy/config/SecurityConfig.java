@@ -22,20 +22,22 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/member/login", "/member/join", "/", "/policy/detail/*").permitAll()
+                        .requestMatchers("/member/login", "/member/join", "/","/policy/policyList","/policy/policyList/*", "/policy/detail/*").permitAll()
                         .anyRequest().authenticated()
                 )
-
+//                기본 로그인
                 .formLogin(form -> form
                         .loginPage("/member/login")
                         .usernameParameter("loginId")
-                        .passwordParameter("pwd")
+                        .passwordParameter("password")
                         .loginProcessingUrl("/member/login")
-                        .defaultSuccessUrl("/")
+                        .defaultSuccessUrl("/",false)
                         .failureUrl("/member/login?error=true")
                         .permitAll()
+                ).oauth2Login(oauth2->oauth2
+                        .loginPage("/member/login")
+                        .defaultSuccessUrl("/",false)
                 )
-
                 .logout(logout -> logout
                         .logoutUrl("/member/logout")
                         .logoutSuccessUrl("/")

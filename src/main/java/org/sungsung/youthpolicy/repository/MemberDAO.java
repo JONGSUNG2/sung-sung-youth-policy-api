@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import org.sungsung.youthpolicy.domain.dto.member.LoginDTO;
 import org.sungsung.youthpolicy.domain.dto.member.MemberDetailDTO;
+import org.sungsung.youthpolicy.domain.dto.member.MemberPlusDTO;
+import org.sungsung.youthpolicy.domain.vo.member.MemberPlusVO;
 import org.sungsung.youthpolicy.domain.vo.member.MemberVO;
 import org.sungsung.youthpolicy.mapper.MemberMapper;
 
@@ -22,7 +24,19 @@ public class MemberDAO {
     public LoginDTO selectPwdByLoginId(String loginId) {
         return memberMapper.selectPwdByLoginId(loginId);
     }
-    public Optional<MemberDetailDTO> selectMemberByLoginId(String id){
-        return memberMapper.selectMemberByLoginId(id);
+    public Optional<MemberDetailDTO> selectMemberByLoginId(String loginId){
+        return memberMapper.selectMemberByLoginId(loginId);
+    }
+
+    public String selectIdByLoginId(String loginId){
+        return memberMapper.selectIdByLoginId(loginId);
+    }
+
+    public MemberPlusDTO selectMemberPlusDTOByMemberId(String loginId){
+        return memberMapper.selectMemberPlusDTOByMemberId(loginId);
+    }
+
+    public void insertMemberPlus(MemberPlusVO memberPlusVO){
+        memberMapper.insertMemberPlus(memberPlusVO);
     }
 }

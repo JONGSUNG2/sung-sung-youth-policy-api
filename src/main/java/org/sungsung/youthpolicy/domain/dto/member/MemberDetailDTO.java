@@ -8,4 +8,5 @@ public class MemberDetailDTO {
     String loginId;
     String name;
     String email;
+    String provider;
 }

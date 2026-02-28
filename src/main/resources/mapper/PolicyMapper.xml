@@ -82,31 +82,47 @@
     <!--    정책 목록 가져오기-->
     <select id="selectPolicyList">
         SELECT POLICY_ID,POLICY_NAME,DESCRIPTION FROM TBL_POLICY_MASTER
-                                                 WHERE 1=1
-                                                 <if test="policyCondition.addressCode != null and policyCondition.addressCode != ''">
-                                                     AND ADDRESS_CODE LIKE CONCAT(
-                                                     #{policyCondition.addressCode},
-                                                     '%'
-                                                     )
-                                                 </if>
+             WHERE 1=1
+             <if test="policyCondition.addressCode != null and policyCondition.addressCode != ''">
+                 AND ADDRESS_CODE LIKE CONCAT(
+                 #{policyCondition.addressCode},
+                 '%'
+                 )
+             </if>
 
 
-                                                <if test="policyCondition.mainCategory != null and policyCondition.mainCategory != ''">
-                                                    AND MAIN_CATEGORY LIKE CONCAT('%', #{policyCondition.mainCategory}, '%')
-                                                </if>
+            <if test="policyCondition.mainCategory != null and policyCondition.mainCategory != ''">
+                AND MAIN_CATEGORY LIKE CONCAT('%', #{policyCondition.mainCategory}, '%')
+            </if>
 
-                                                <if test="policyCondition.policyName != null and policyCondition.policyName != ''">
-                                                    ANd POLICY_NAME LIKE CONCAT('%', #{policyCondition.policyName}, '%')
-                                                </if>
+            <if test="policyCondition.policyName != null and policyCondition.policyName != ''">
+                ANd POLICY_NAME LIKE CONCAT('%', #{policyCondition.policyName}, '%')
+            </if>
 
-                                                 LIMIT #{policyListRequestDTO.pageSize} OFFSET #{policyListRequestDTO.startRow};
+             LIMIT #{policyListRequestDTO.pageSize} OFFSET #{policyListRequestDTO.startRow};
     </select>
     <!--    정책 상세 가져오기-->
+<!--    <select id="selectPolicyDetailById">-->
+<!--        SELECT POLICY_NAME,MAIN_CATEGORY,SUB_CATEGORY,REGION,DESCRIPTION,KEYWORD,ADMIN_NAME,APPLY_METHOD-->
+<!--        FROM TBL_POLICY_MASTER TPM INNER JOIN TBL_POLICY_APPLICATION TPA-->
+<!--                                              ON TPA.POLICY_ID = TPM.POLICY_ID WHERE TPM.POLICY_ID = #{policyId}-->
+<!--    </select>-->
+
     <select id="selectPolicyDetailById">
-        SELECT POLICY_NAME,MAIN_CATEGORY,SUB_CATEGORY,REGION,DESCRIPTION,KEYWORD,ADMIN_NAME,APPLY_METHOD
-        FROM TBL_POLICY_MASTER TPM INNER JOIN TBL_POLICY_APPLICATION TPA
-                                              ON TPA.POLICY_ID = TPM.POLICY_ID WHERE TPM.POLICY_ID = #{policyId}
+        SELECT TPM.POLICY_NAME, TPM.KEYWORD, TPM.DESCRIPTION, TPM.MAIN_CATEGORY, TPM.SUB_CATEGORY,TPM.REGION, TPM.ADMIN_NAME,
+               TPS.SUPPORT_SUMMARY,TPS.SUPPORT_LIMIT_FLAG,TPS.SUPPORT_COUNT,TPS.FIRST_COME_FLAG,
+               TPA.APPLY_METHOD,TPA.APPLY_URL,TPA.SUBMISSION_DOCUMENTS,TPA.ETC_NOTES,TPA.REFERENCE_URL1,TPA.REFERENCE_URL2,
+               TPB.BUSINESS_START_DATE,TPB.BUSINESS_END_DATE,TPB.BUSINESS_PERIOD_TYPE,
+               TPE.MIN_AGE,TPE.MAX_AGE,TPE.ADDITIONAL_QUALIFICATION,TPE.PARTICIPANT_TARGET_TEXT
+        FROM TBL_POLICY_MASTER TPM
+                 INNER JOIN TBL_POLICY_SUPPORT TPS on TPM.POLICY_ID = TPS.POLICY_ID
+                 INNER JOIN TBL_POLICY_APPLICATION TPA on TPM.POLICY_ID = TPA.POLICY_ID
+                 INNER JOIN TBL_POLICY_BUSINESS_PERIOD TPB on TPM.POLICY_ID = TPB.POLICY_ID
+                 INNER JOIN TBL_POLICY_ELIGIBILITY TPE on TPA.POLICY_ID = TPE.POLICY_ID
+        WHERE TPM.POLICY_ID =#{policyId};
+
     </select>
+
     <select id="selectPolicyCount">
         SELECT COUNT(*) FROM TBL_POLICY_MASTER
                         WHERE 1=1
@@ -125,5 +141,22 @@
         <if test="policyName != null and policyName != ''">
             ANd POLICY_NAME LIKE CONCAT('%', #{policyName}, '%')
         </if>
+    </select>
+
+
+<!--정책 추천 -->
+
+    <select id="recommendPolicyList">
+        SELECT TPM.POLICY_ID
+
+        FROM TBL_POLICY_MASTER TPM
+        INNER JOIN TBL_POLICY_ELIGIBILITY TPE ON TPM.POLICY_ID = TPE.POLICY_ID
+        WHERE TPM.MAIN_CATEGORY = #{mainCategory}
+        AND TPM.ADDRESS_CODE LIKE CONCAT('%', #{region}, '%')
+        AND (TPE.AGE_LIMIT_FLAG = 'Y'
+        OR (TPE.AGE_LIMIT_FLAG = 'N'
+            AND #{age} BETWEEN TPE.MIN_AGE AND TPE.MAX_AGE)
+        )
+        AND TPE.MARRY_STATUS_CODE = 0055003
     </select>
 </mapper>

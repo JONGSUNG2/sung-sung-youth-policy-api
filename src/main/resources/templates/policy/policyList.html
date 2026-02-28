@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>정책 지원 서비스</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', Arial, sans-serif;
+            background-color: #f5f6fa;
+            color: #333;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background-color: white;
+            border-bottom: 1px solid #e6e9f0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #2d68ff;
+            font-size: 22px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 28px;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li a {
+            color: #333;
+            font-size: 16px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        nav ul li a:hover {
+            color: #2d68ff;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(135deg, #2d68ff, #5d8aff);
+            color: white;
+            padding: 70px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            font-size: 17px;
+            opacity: 0.9;
+        }
+
+        /* ===== MAIN SECTION ===== */
+        .main-section {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .main-title {
+            font-size: 26px;
+            margin-bottom: 25px;
+            font-weight: 700;
+            color: #222;
+        }
+
+        /* ===== SEARCH BOX ===== */
+        .search-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .search-box input, .search-box select {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #d5d9e2;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .search-box button {
+            padding: 12px 22px;
+            background-color: #2d68ff;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .search-box button:hover {
+            background-color: #2554cc;
+        }
+
+        /* ===== POLICY LIST ===== */
+        .policy-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .policy-item {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            margin-bottom: 16px;
+            border: 1px solid #e3e7ef;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            transition: 0.2s;
+        }
+
+        .policy-item:hover {
+            box-shadow: 0 5px 16px rgba(0,0,0,0.10);
+            transform: translateY(-2px);
+        }
+
+        .policy-item h3 a {
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 600;
+            color: #2d68ff;
+        }
+
+        .policy-item p {
+            margin-top: 10px;
+            color: #555;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+
+        /* ===== PAGINATION ===== */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 30px 0;
+        }
+
+        .page-btn {
+            padding: 8px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            border: 1px solid #d5d9e2;
+            background: white;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .page-btn.active {
+            background: #2d68ff;
+            color: white;
+            border-color: #2d68ff;
+        }
+
+        .page-btn:hover {
+            background: #eef3ff;
+        }
+
+        .page-btn.disabled {
+            background: #f1f1f1;
+            color: #aaa;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: white;
+            padding: 20px;
+            margin-top: 50px;
+            border-top: 1px solid #e6e9f0;
+            text-align: center;
+            color: #777;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="nav-container">
+        <a href="/" class="logo">청년 정책지원</a>
+
+        <nav>
+            <ul>
+                <li sec:authorize="isAuthenticated()"><a href="/">AI 맞춤혜택</a></li>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/member/detail}">마이페이지</a></li>
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/member/logout}">로그아웃</a></li>
+
+                <li sec:authorize="!isAuthenticated()"><a th:href="@{/member/login}">로그인</a></li>
+                <li sec:authorize="!isAuthenticated()"><a th:href="@{/member/join}">회원가입</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- HERO BANNER -->
+<section class="hero">
+    <h1>대한민국 모든 혜택을 한 곳에서</h1>
+    <p>청년 · 학생 · 구직자 · 서민 누구나 맞춤 지원을 받을 수 있어요</p>
+</section>
+
+<!-- MAIN -->
+<div class="main-section">
+
+    <h2 class="main-title">정책 목록</h2>
+
+    <!-- 검색박스 -->
+    <form class="search-box" method="get" th:action="@{/policy/policyList}">
+        <input type="text" name="policyName"
+               th:field="${policyCondition.policyName}"
+               placeholder="검색할 정책명을 입력하세요">
+
+        <select th:field="${policyCondition.mainCategory}">
+            <option value="">전체 분야</option>
+            <option th:each="c : ${mainCategories}" th:value="${c.name}" th:text="${c.name}"></option>
+        </select>
+
+        <select th:field="${policyCondition.addressCode}">
+            <option value="">전체 지역</option>
+            <option th:each="r : ${regions}" th:value="${r.code}" th:text="${r.name}"></option>
+        </select>
+
+        <button type="submit">검색</button>
+    </form>
+
+    <!-- 정책 리스트 -->
+    <ul class="policy-list">
+        <li class="policy-item" th:each="policy : ${policyList}">
+            <h3>
+                <a th:href="@{/policy/detail/{id}(id=${policy.policyId})}"
+                   th:text="${policy.policyName}">
+                </a>
+            </h3>
+            <p th:text="${policy.description}"></p>
+        </li>
+    </ul>
+
+    <!-- 페이징 -->
+    <div class="pagination" th:object="${policyListRequestDTO}">
+
+        <!-- 이전 -->
+        <a th:if="*{currentPage>1}"
+           th:href="@{/policy/policyList(currentPage=*{currentPage - 1})}"
+           class="page-btn">이전</a>
+
+        <!-- 번호 -->
+        <a th:each="i : *{#numbers.sequence(startPage, endPage)}"
+           th:href="@{/policy/policyList(currentPage=${i})}"
+           th:text="${i}"
+           th:class="'page-btn ' + (${i} == *{currentPage} ? 'active' : '')">
+        </a>
+
+        <!-- 다음 -->
+        <a th:if="*{currentPage < totalPage}"
+           th:href="@{/policy/policyList(currentPage=*{currentPage + 1})}"
+           class="page-btn">다음</a>
+
+    </div>
+
+</div>
+
+<footer>© 2026 정책지원 서비스</footer>
+
+</body>
+</html>

@@ -4,158 +4,249 @@
 <head>
     <meta charset="UTF-8">
     <title>정책 상세정보</title>
+
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
+            font-family: 'Inter', Arial, sans-serif;
+            background-color: #f3f4f7;
+            color: #333;
+            line-height: 1.55;
         }
 
+        /* ===== HEADER ===== */
         header {
-            background-color: #2d68ff;
-            padding: 15px 20px;
-            color: #fff;
+            background-color: white;
+            border-bottom: 1px solid #e6e9f0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 14px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
+            color: #2d68ff;
             font-size: 22px;
-            font-weight: bold;
+            font-weight: 700;
+            text-decoration: none;
         }
 
         nav ul {
             list-style: none;
-            margin: 0;
-            padding: 0;
             display: flex;
-            gap: 25px;
+            gap: 28px;
+            padding: 0;
+            margin: 0;
         }
 
-
         nav ul li a {
-            color: white;
+            color: #333;
+            font-size: 16px;
             text-decoration: none;
+            font-weight: 500;
         }
 
         nav ul li a:hover {
+            color: #2d68ff;
+        }
+
+        /* 메인 */
+        .main {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        /* 제목 박스 */
+        .title-box {
+            background: #ffffff;
+            padding: 32px 35px;
+            border-radius: 16px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+            margin-bottom: 40px;
+            border-left: 6px solid #2563eb;
+        }
+
+        .policy-title {
+            font-size: 30px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .meta {
+            color: #666;
+            font-size: 15px;
+        }
+
+        /* 공통 카드 */
+        .card {
+            background: #ffffff;
+            padding: 28px 32px;
+            border-radius: 14px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+            border-left: 4px solid #dbeafe;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid #2563eb;
+            color: #1f2937;
+        }
+
+        .keyword {
+            display: inline-block;
+            background: #eef2ff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-right: 8px;
+            font-size: 14px;
+            color: #4338ca;
+            font-weight: 500;
+        }
+
+        a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        a:hover {
             text-decoration: underline;
         }
 
-        .main-section {
-            max-width: 900px;
-            margin: 40px auto;
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-        }
-
-        .title {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .meta-info {
-            color: #666;
-            font-size: 15px;
-            margin-bottom: 20px;
-        }
-
-        .policy-box {
-            background-color: #f5f7ff;
-            padding: 15px 20px;
-            border-left: 4px solid #2d68ff;
-            margin-bottom: 25px;
-        }
-
-        .section-title {
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 30px;
-        }
-
-        .keyword-box {
-            background-color: #eee;
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 18px;
-            margin-right: 8px;
-            font-size: 14px;
-        }
-
+        /* footer */
         footer {
-            margin-top: 40px;
+            background: white;
             padding: 20px;
-            background-color: #eee;
+            margin-top: 50px;
+            border-top: 1px solid #e6e9f0;
             text-align: center;
-            color: #555;
+            color: #777;
         }
     </style>
 </head>
+
 <body>
 
+<!-- HEADER -->
 <header>
     <div class="nav-container">
-        <div class="logo">정책지원 서비스</div>
+
+        <a href="/" class="logo">청년 정책지원</a>
+
         <nav>
             <ul>
-                <!-- 로그인 상태 -->
-                <li sec:authorize="isAuthenticated()"><a href="/">AI 맞춤혜택 서비스</a></li>
+                <li><a th:href="@{/policy/policyList}">정책 목록</a></li>
+
+                <li sec:authorize="isAuthenticated()"><a href="/">AI 맞춤혜택</a></li>
                 <li sec:authorize="isAuthenticated()"><a th:href="@{/member/detail}">마이페이지</a></li>
                 <li sec:authorize="isAuthenticated()"><a th:href="@{/member/logout}">로그아웃</a></li>
 
-                <!-- 로그아웃 상태 -->
                 <li sec:authorize="!isAuthenticated()"><a th:href="@{/member/login}">로그인</a></li>
                 <li sec:authorize="!isAuthenticated()"><a th:href="@{/member/join}">회원가입</a></li>
             </ul>
         </nav>
+
     </div>
 </header>
 
-<!— Main Content —>
-<div class="main-section">
 
-    <!— Title —>
-    <div class="title" th:text="${policy.policyName}">정책명</div>
+<!-- MAIN -->
+<div class="main">
 
-    <!— Meta —>
-    <div class="meta-info">
-        <span th:text="'대분류: ' + ${policy.mainCategory}"></span> ·
-        <span th:text="'중분류: ' + ${policy.subCategory}"></span> ·
-        <span th:text="'지역: ' + ${policy.region}"></span>
+    <!-- 제목 박스 -->
+    <div class="title-box">
+        <div class="policy-title" th:text="${policy.policyName}">정책명</div>
+        <div class="meta">
+            <span th:text="'대분류: ' + ${policy.mainCategory}"></span> ·
+            <span th:text="'중분류: ' + ${policy.subCategory}"></span> ·
+            <span th:text="'지역: ' + ${policy.region}"></span>
+        </div>
     </div>
 
-    <!— Description —>
-    <div class="policy-box">
-        <strong>정책 설명</strong>
-        <p th:text="${policy.description}">정책 설명 내용 들어가는 곳</p>
+    <!-- 정책 설명 -->
+    <div class="card">
+        <h3>정책 설명</h3>
+        <p th:text="${policy.description}"></p>
     </div>
 
-    <!— Keyword —>
-    <div class="section-title">키워드</div>
-    <div>
-        <span class="keyword-box" th:text="${policy.keyword}">청년 / 주거</span>
+    <!-- 키워드 -->
+    <div class="card">
+        <h3>키워드</h3>
+        <span class="keyword" th:text="${policy.keyword}">키워드</span>
     </div>
 
-    <!-- 담당 기관 -->
-    <div class="section-title">담당자 또는 담당 부서</div>
-    <p th:text="${policy.adminName}">서울특별시 청년정책과</p>
+    <!-- 담당자 -->
+    <div class="card">
+        <h3>담당 부서 / 담당자</h3>
+        <p th:text="${policy.adminName}"></p>
+    </div>
 
-    <!-- 신청 방법 -->
-    <div class="section-title">신청 방법</div>
-    <p th:text="${policy.applyMethod}">온라인 또는 방문 신청</p>
+    <!-- 지원 요약 -->
+    <div class="card">
+        <h3>지원 정보</h3>
+        <p><strong>지원 요약:</strong> <span th:text="${policy.supportSummary}"></span></p>
+        <p><strong>지원 규모 제한:</strong> <span th:text="${policy.supportLimitFlag}"></span></p>
+        <p><strong>지원자 수:</strong> <span th:text="${policy.supportCount}"></span></p>
+        <p><strong>선착순 여부:</strong> <span th:text="${policy.firstComeFlag}"></span></p>
+    </div>
+
+    <!-- 신청 -->
+    <div class="card">
+        <h3>신청 안내</h3>
+        <p><strong>신청 방법 / 기간:</strong></p>
+        <p th:text="${policy.applyMethod}"></p>
+
+        <p><strong>신청 URL:</strong></p>
+        <a th:href="${policy.applyUrl}" th:text="${policy.applyUrl}" target="_blank"></a>
+
+        <p><strong>제출 서류:</strong></p>
+        <p th:text="${policy.submissionDocuments}"></p>
+
+        <p><strong>기타 정보:</strong></p>
+        <p th:text="${policy.etc_Notes}"></p>
+    </div>
+
+    <!-- 참고 링크 -->
+    <div class="card">
+        <h3>참고 링크</h3>
+        <p><a th:href="${policy.referenceUrl1}" th:text="${policy.referenceUrl1}" target="_blank"></a></p>
+        <p><a th:href="${policy.referenceUrl2}" th:text="${policy.referenceUrl2}" target="_blank"></a></p>
+    </div>
+
+    <!-- 기간 -->
+    <div class="card">
+        <h3>사업 기간</h3>
+        <p><strong>시작일:</strong> <span th:text="${policy.formatStartDate()}"></span></p>
+        <p><strong>종료일:</strong> <span th:text="${policy.formatEndDate()}"></span></p>
+        <p><strong>연중 모집 여부:</strong> <span th:text="${policy.businessPeriodType}"></span></p>
+    </div>
+
+    <!-- 자격 -->
+    <div class="card">
+        <h3>신청 자격</h3>
+        <p><strong>최소 나이:</strong> <span th:text="${policy.minAge}"></span></p>
+        <p><strong>최대 나이:</strong> <span th:text="${policy.maxAge}"></span></p>
+        <p><strong>추가 조건:</strong></p>
+        <p th:text="${policy.additionalQualification}"></p>
+        <p><strong>참여 대상 상세:</strong></p>
+        <p th:text="${policy.participantTargetText}"></p>
+    </div>
 
 </div>
 
-<footer>
-    © 2026 정책지원 서비스. All rights reserved.
-</footer>
+<footer>© 2026 정책지원 서비스</footer>
 
 </body>
 </html>
