@@ -62,12 +62,14 @@
         <label for="loginId">아이디</label>
         <input type="text" id="loginId" name="loginId" required>
 
-        <label for="pwd">비밀번호</label>
-        <input type="password" id="pwd" name="pwd" required>
+        <label for="password">비밀번호</label>
+        <input type="password" id="password" name="password" required>
 
         <button type="submit">로그인</button>
     </form>
-
+    <a href="/oauth2/authorization/kakao">
+        카카오로 로그인
+    </a>
     <!-- 로그인 실패 메시지 -->
     <p class="error" th:if="${error}" th:text="${error}"></p>
 </div>

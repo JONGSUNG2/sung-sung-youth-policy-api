@@ -1,10 +1,13 @@
 --멤버 기본정보
 CREATE TABLE TBL_MEMBER(
-                           id NUMBER AUTO_INCREMENT PRIMARY KEY,
-                           email VARCHAR(255) UNIQUE NOT NULL,
-                           name VARCHAR(255) NOT NULL,
-                           login_id VARCHAR(255) UNIQUE NOT NULL,
-                           pwd VARCHAR(255) NOT NULL
+                           ID NUMBER AUTO_INCREMENT PRIMARY KEY,
+                           EMAIL VARCHAR(255) UNIQUE NOT NULL,
+                           NAME VARCHAR(255) NOT NULL,
+                           LOGIN_ID VARCHAR(255) UNIQUE NOT NULL,
+                           PASSWORD VARCHAR(255),
+                           PROVIDER VARCHAR2(25),
+                           PROVIDER_ID varchar2(255),
+                           ROLE varchar2(25)
 
 );
 

@@ -2,17 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.sungsung.youthpolicy.mapper.MemberMapper">
     <insert id="insertMember" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO TBL_MEMBER(EMAIL, NAME, LOGIN_ID, PWD)
-        VALUES (#{email},#{name},#{loginId}, #{pwd})
+        INSERT INTO TBL_MEMBER(EMAIL, NAME, LOGIN_ID, PASSWORD,PROVIDER,ROLE)
+        VALUES (#{email},#{name},#{loginId}, #{password},#{provider},#{role})
     </insert>
 
 
     <select id="selectPwdByLoginId">
-        SELECT ID,LOGIN_ID, PWD FROM TBL_MEMBER
+        SELECT ID,LOGIN_ID, PASSWORD FROM TBL_MEMBER
         WHERE LOGIN_ID=#{loginId}
     </select>
 
     <select id="selectMemberByLoginId">
-        SELECT LOGIN_ID, NAME, EMAIL FROM TBL_MEMBER WHERE LOGIN_ID=#{id}
+        SELECT LOGIN_ID, NAME, EMAIL,PROVIDER FROM TBL_MEMBER WHERE LOGIN_ID=#{id}
     </select>
 </mapper>
