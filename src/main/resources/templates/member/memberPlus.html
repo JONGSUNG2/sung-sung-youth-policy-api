@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 추가 정보</title>
+    <style>
+        body {
+            background-color: #f4f6f9;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 420px;
+            margin: 80px auto;
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .welcome {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .welcome h2 {
+            margin: 0;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .welcome span {
+            color: #4a90e2;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #4a90e2;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #4a90e2;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #357bd8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+
+        <!-- 상단 인사 영역 -->
+        <div class="welcome">
+            <h2>안녕하세요, <span th:text="${memberName}">홍길동</span>님 👋</h2>
+            <p style="font-size:13px; color:#777; margin-top:5px;">
+                추가 정보를 입력해 주세요.
+            </p>
+        </div>
+
+        <form th:action="@{/member/memberPlus}" th:object="${memberPlus}" method="post">
+
+            <input type="hidden" th:field="*{memberId}" />
+
+            <!-- 나이 -->
+            <div class="form-group">
+                <label>나이</label>
+                <input type="number" th:field="*{age}" min="1" max="120" required />
+            </div>
+
+            <!-- 지역 -->
+            <div class="form-group">
+                <label>지역</label>
+                <select th:field="*{region}" required>
+                    <option value="">-- 지역 선택 --</option>
+                    <option th:each="r : ${regions}"
+                            th:value="${r.code}"
+                            th:text="${r.name}">
+                    </option>
+                </select>
+            </div>
+
+            <!-- 관심 정책 -->
+            <div class="form-group">
+                <label>관심 정책</label>
+                <select th:field="*{mainCategory}" required>
+                    <option value="">-- 관심 정책 선택 --</option>
+                    <option th:each="m : ${mainCategories}"
+                            th:value="${m.name}"
+                            th:text="${m.name}">
+                    </option>
+                </select>
+            </div>
+
+
+            <!-- 결혼 여부 -->
+            <div class="form-group">
+                <label>결혼 여부</label>
+                <select th:field="*{marriage}" required>
+                    <option value="">-- 선택 --</option>
+                    <option value="0055003">미혼</option>
+                    <option value="0055001">기혼</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn">저장</button>
+
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

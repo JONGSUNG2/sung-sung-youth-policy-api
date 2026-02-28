@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>맞춤 정책 추천</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', Arial, sans-serif;
+            background-color: #f5f6fa;
+            color: #333;
+        }
+
+        header {
+            background-color: white;
+            border-bottom: 1px solid #e6e9f0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #2d68ff;
+            font-size: 22px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #2d68ff, #5d8aff);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .main-section {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .policy-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .policy-item {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            margin-bottom: 16px;
+            border: 1px solid #e3e7ef;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            transition: 0.2s;
+        }
+
+        .policy-item:hover {
+            box-shadow: 0 5px 16px rgba(0,0,0,0.10);
+            transform: translateY(-2px);
+        }
+
+        .policy-item h3 a {
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 600;
+            color: #2d68ff;
+        }
+
+        .policy-item p {
+            margin-top: 10px;
+            color: #555;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+
+        footer {
+            background: white;
+            padding: 20px;
+            margin-top: 50px;
+            border-top: 1px solid #e6e9f0;
+            text-align: center;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="nav-container">
+        <a href="/" class="logo">청년 정책지원</a>
+    </div>
+</header>
+
+<section class="hero">
+    <h1 th:text="'안녕하세요 ' + ${loginMemberName} + '님'">
+        안녕하세요 홍길동님
+    </h1>
+    <p>회원님의 조건에 맞는 추천 정책 목록입니다.</p>
+</section>
+
+<div class="main-section">
+
+    <ul class="policy-list">
+        <li class="policy-item" th:each="policy : ${recommendedList}">
+            <h3>
+                <a th:href="@{/policy/detail/{id}(id=${policy.policyId})}"
+                   th:text="${policy.policyName}">
+                </a>
+            </h3>
+            <p th:text="${policy.description}"></p>
+        </li>
+    </ul>
+
+    <!-- 추천 결과 없을 경우 -->
+    <div th:if="${#lists.isEmpty(recommendedList)}"
+         style="text-align:center; margin-top:40px; color:#777;">
+        추천 가능한 정책이 없습니다.
+    </div>
+
+</div>
+
+<footer>© 2026 정책지원 서비스</footer>
+
+</body>
+</html>
