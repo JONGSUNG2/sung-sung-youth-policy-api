@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 import org.sungsung.youthpolicy.domain.dto.policy.PolicyDetailDTO;
 import org.sungsung.youthpolicy.domain.dto.policy.PolicyListRequestDTO;
 import org.sungsung.youthpolicy.domain.dto.policy.PolicyListResponseDTO;
+import org.sungsung.youthpolicy.domain.dto.policy.PolicyRecommendRequestDTO;
+import org.sungsung.youthpolicy.domain.dto.policy.publicData.PolicyDTO;
 import org.sungsung.youthpolicy.domain.vo.policy.*;
 import org.sungsung.youthpolicy.mapper.PolicyMapper;
 
@@ -42,5 +44,21 @@ public class PolicyDAO {
 //    정책 개수
     public Integer selectPolicyCount(PolicyListRequestDTO policyListRequestDTO){
         return policyMapper.selectPolicyCount(policyListRequestDTO);
+    }
+//    정책 조건 넣기
+    public void insertPolicyCondition(PolicyConditionVO policyConditionVO){
+        policyMapper.insertPolicyCondition(policyConditionVO);
+    }
+//    정책 조건 중복체크
+    public PolicyConditionVO selectPolicyRecommendByHsh(String hash){
+        return policyMapper.selectPolicyRecommendByHash(hash);
+    }
+//    정책 필터링 목록
+    public List<String> selectFilterPolicyId(PolicyConditionVO policyConditionVO){
+        return policyMapper.selectFilterPolicyIds(policyConditionVO);
+    }
+    //    필터링된 정책의 아이디로 정책목록 가져오기
+    public List<PolicyDTO> selectPolicyListByFilteringId(List<String> policyIds){
+        return policyMapper.selectPolicyListByFilteringId(policyIds);
     }
 }

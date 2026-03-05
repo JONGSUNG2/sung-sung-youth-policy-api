@@ -18,18 +18,18 @@
 <div class="container">
     <h2>AI 정책 추천 받기</h2>
 
-    <form th:action="@{/policy/recommend/process}" method="get" th:object="${policyRecommendRequestDTO}">
+    <form th:action="@{/policy/condition}" method="post" th:object="${policyConditionVO}">
 
         <label>나이</label>
         <input type="number" name="age" min="1" required>
 
         <label>거주 지역</label>
-        <select name="region" th:field="*{region}" required>
+        <select name="region" th:field="*{region}">
             <option value="">전체 지역</option>
             <option th:each="r:${regions}" th:value="${r.code}" th:text="${r.name}"></option>
         </select>
         <label>전체 분야</label>
-        <select name="region" th:field="*{mainCategory}" required>
+        <select name="region" th:field="*{mainCategory}">
             <option value="">선택하세요</option>
             <option th:each="c:${mainCategories}" th:value="${c.name}" th:text="${c.name}">선택하세요</option>
         </select>

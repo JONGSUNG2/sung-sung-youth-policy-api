@@ -1,9 +1,11 @@
 package org.sungsung.youthpolicy.service.policy;
 
 import org.sungsung.youthpolicy.domain.dto.policy.PolicyListRequestDTO;
+import org.sungsung.youthpolicy.domain.dto.policy.PolicyRecommendRequestDTO;
 import org.sungsung.youthpolicy.domain.dto.policy.publicData.PolicyDTO;
 import org.sungsung.youthpolicy.domain.dto.policy.PolicyDetailDTO;
 import org.sungsung.youthpolicy.domain.dto.policy.PolicyListResponseDTO;
+import org.sungsung.youthpolicy.domain.vo.policy.PolicyConditionVO;
 
 import java.util.List;
 
@@ -14,4 +16,12 @@ public interface PolicyService {
     public List<PolicyListResponseDTO> policyList(PolicyListRequestDTO policyListRequestDTO);
     //    정책 상세
     public PolicyDetailDTO policyDetail(String policyId);
+
+    public void writePolicyCondition(PolicyConditionVO policyConditionVO);
+    public PolicyConditionVO findRecommendPolicyByHash(String hash);
+
+//    정책 필터링 목록
+    public List<String> findFilteringPolicyIds(PolicyConditionVO policyConditionVO);
+    //    필터링된 정책의 아이디로 정책목록 가져오기
+    public List<PolicyDTO> findFilteringPolicyList(List<String> policyId);
 }

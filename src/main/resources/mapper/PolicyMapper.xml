@@ -134,4 +134,30 @@
             ANd POLICY_NAME LIKE CONCAT('%', #{policyName}, '%')
         </if>
     </select>
+
+    <insert id="insertPolicyCondition" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO TBL_POLICY_CONDITION(LOGIN_ID, AGE, REGION, MAIN_CATEGORY, CONDITION_HASH)
+        VALUES ( #{loginId},#{age},#{region},#{mainCategory},#{conditionHash} )
+    </insert>
+    <select id="selectPolicyRecommendByHash">
+        SELECT LOGIN_ID,AGE,REGION,MAIN_CATEGORY,CONDITION_HASH FROM TBL_POLICY_CONDITION WHERE CONDITION_HASH = #{hash}
+    </select>
+    <select id="selectFilterPolicyIds">
+        SELECT TPM.POLICY_ID FROM TBL_POLICY_MASTER TPM
+                                      INNER JOIN TBL_POLICY_ELIGIBILITY TPE on TPM.POLICY_ID = TPE.POLICY_ID
+        WHERE (AGE_LIMIT_FLAG = 'Y'OR
+               (AGE_LIMIT_FLAG = 'N' AND #{age} BETWEEN MIN_AGE AND MAX_AGE))
+          AND (TPM.ADDRESS_CODE LIKE CONCAT(#{region},'%'))
+          AND MAIN_CATEGORY LIKE CONCAT('%', #{mainCategory}, '%');
+
+    </select>
+
+    <select id="selectPolicyListByFilteringId" resultType="PolicyDTO">
+        SELECT *
+        FROM POLICY_AI_VIEW
+        WHERE POLICY_ID IN
+        <foreach item="id" collection="list" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
 </mapper>
