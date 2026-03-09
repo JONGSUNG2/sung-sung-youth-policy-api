@@ -4,15 +4,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.sungsung.youthpolicy.converter.PolicyDataConverter;
-import org.sungsung.youthpolicy.domain.dto.member.MemberPlusDTO;
-import org.sungsung.youthpolicy.domain.dto.policy.PolicyCondition;
 import org.sungsung.youthpolicy.domain.dto.policy.PolicyListRequestDTO;
 import org.sungsung.youthpolicy.domain.dto.policy.PolicyRecommendListDTO;
 import org.sungsung.youthpolicy.domain.dto.policy.publicData.PolicyDTO;
 import org.sungsung.youthpolicy.domain.dto.policy.PolicyDetailDTO;
 import org.sungsung.youthpolicy.domain.dto.policy.PolicyListResponseDTO;
 import org.sungsung.youthpolicy.domain.vo.policy.*;
-import org.sungsung.youthpolicy.repository.MemberDAO;
 import org.sungsung.youthpolicy.repository.PolicyDAO;
 
 import java.util.List;
@@ -23,7 +20,6 @@ public class PolicyServiceImpl implements PolicyService {
 
     private final PolicyDataConverter policyDataConverter;
     private final PolicyDAO policyDAO;
-    private final MemberDAO memberDAO;
     public static Integer PAGE_SIZE=5;
     @Override
     //    DB에 공공데이터 넣기
@@ -70,8 +66,36 @@ public class PolicyServiceImpl implements PolicyService {
         return policyDAO.selectPolicyDetailById(policyId);
     }
 
+    @Override
+    public void writePolicyCondition(PolicyConditionVO policyConditionVO) {
+        policyDAO.insertPolicyCondition(policyConditionVO);
+    }
 
+    @Override
+    public PolicyConditionVO findRecommendPolicyByHash(String hash) {
+        return policyDAO.selectPolicyRecommendByHsh(hash);
+    }
+
+    //    필터링된 정책의 policyIds
+    @Override
+    public List<String> findFilteringPolicyIds(PolicyConditionVO policyConditionVO) {
+        return policyDAO.selectFilterPolicyId(policyConditionVO);
+    }
+
+    @Override
+    public List<PolicyDTO> findFilteringPolicyList(List<String> policyIds) {
+        return policyDAO.selectPolicyListByFilteringId(policyIds);
+    }
+
+    @Override
+    public void writeRecommendPolicy(PolicyRecommendVO policyRecommendVO) {
+        policyDAO.insertRecommendPolicy(policyRecommendVO);
+    }
+
+    @Override
+    public List<PolicyRecommendListDTO> findRecommendPolicyList(String hash) {
+        return policyDAO.selectRecommendPolicyList(hash);
+    }
 
 
 }
-

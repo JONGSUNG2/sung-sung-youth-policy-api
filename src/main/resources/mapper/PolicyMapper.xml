@@ -117,7 +117,7 @@
 
     <select id="selectPolicyCount">
         SELECT COUNT(*) FROM TBL_POLICY_MASTER
-                        WHERE 1=1
+        WHERE 1=1
         <if test="addressCode != null and addressCode != ''">
             AND ADDRESS_CODE LIKE CONCAT(
             #{addressCode},
@@ -135,19 +135,18 @@
         </if>
     </select>
 
-<<<<<<< feature/Ai-recommand
-<!--    필터링 조건 삽입 IN TBL_POLICY_CONDITION-->
+    <!--    필터링 조건 삽입 IN TBL_POLICY_CONDITION-->
     <insert id="insertPolicyCondition" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO TBL_POLICY_CONDITION(LOGIN_ID, AGE, REGION, MAIN_CATEGORY, CONDITION_HASH)
         VALUES ( #{loginId},#{age},#{region},#{mainCategory},#{conditionHash} )
     </insert>
 
-<!--    HASH값에 맞는 조건 조회-->
+    <!--    HASH값에 맞는 조건 조회-->
     <select id="selectPolicyConditionByHash">
         SELECT LOGIN_ID,AGE,REGION,MAIN_CATEGORY,CONDITION_HASH FROM TBL_POLICY_CONDITION WHERE CONDITION_HASH = #{hash}
     </select>
 
-<!--      조건에 맞게 필터링한 정책 아이디 조회-->
+    <!--      조건에 맞게 필터링한 정책 아이디 조회-->
     <select id="selectFilterPolicyIds">
         SELECT TPM.POLICY_ID FROM TBL_POLICY_MASTER TPM
                                       INNER JOIN TBL_POLICY_ELIGIBILITY TPE on TPM.POLICY_ID = TPE.POLICY_ID
@@ -158,7 +157,7 @@
 
     </select>
 
-<!--    필터링된 아이디들로 정책 목록 조회-->
+    <!--    필터링된 아이디들로 정책 목록 조회-->
     <select id="selectPolicyListByFilteringId" resultType="PolicyDTO">
         SELECT *
         FROM POLICY_AI_VIEW
@@ -167,33 +166,16 @@
             #{id}
         </foreach>
     </select>
-<!--    AI 추천 정책 삽입-->
+    <!--    AI 추천 정책 삽입-->
     <insert id="insertRecommendPolicy" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO TBL_POLICY_RECOMMEND (LOGIN_ID,CONDITION_HASH,POLICY_ID,POLICY_NAME,REGION,REASON,EFFECT )
         VALUES(#{loginId},#{conditionHash},#{policyId},#{policyName},#{region},#{reason},#{effect})
 
     </insert>
-<!--    AI 추천 정책목록 조회-->
+    <!--    AI 추천 정책목록 조회-->
     <select id="selectRecommendPolicyList">
         SELECT TPC.AGE,TPC.MAIN_CATEGORY,TPR.LOGIN_ID,TPR.POLICY_NAME,TPR.REGION,TPR.REASON,TPR.EFFECT
         FROM TBL_POLICY_RECOMMEND TPR INNER JOIN TBL_POLICY_CONDITION TPC ON TPR.CONDITION_HASH = TPC.CONDITION_HASH
         WHERE TPR.CONDITION_HASH = #{hash}
-=======
-
-<!--정책 추천 -->
-
-    <select id="recommendPolicyList">
-        SELECT TPM.POLICY_ID
-
-        FROM TBL_POLICY_MASTER TPM
-        INNER JOIN TBL_POLICY_ELIGIBILITY TPE ON TPM.POLICY_ID = TPE.POLICY_ID
-        WHERE TPM.MAIN_CATEGORY = #{mainCategory}
-        AND TPM.ADDRESS_CODE LIKE CONCAT('%', #{region}, '%')
-        AND (TPE.AGE_LIMIT_FLAG = 'Y'
-        OR (TPE.AGE_LIMIT_FLAG = 'N'
-            AND #{age} BETWEEN TPE.MIN_AGE AND TPE.MAX_AGE)
-        )
-        AND TPE.MARRY_STATUS_CODE = 0055003
->>>>>>> develop
     </select>
 </mapper>

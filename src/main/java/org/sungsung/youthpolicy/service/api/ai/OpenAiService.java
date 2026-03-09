@@ -96,4 +96,3 @@ public class OpenAiService {
         return wrapper.getRecommendList();
     }
 }
-

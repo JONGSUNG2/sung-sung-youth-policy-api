@@ -30,7 +30,7 @@ public class PolicyRecommendService {
         List<PolicyDTO> policyList = policyService.findFilteringPolicyList(policyIds);
 
         // 4. GPT 프롬프트 생성 및 호출
-       List<PolicyRecommendVO> recommendList = openAiService.recommendPolicyByAi(policyList,memberLoginId);
+        List<PolicyRecommendVO> recommendList = openAiService.recommendPolicyByAi(policyList,memberLoginId);
 
         // 5. DB에 추천 결과 저장
         for (PolicyRecommendVO recommendPolicy : recommendList) {

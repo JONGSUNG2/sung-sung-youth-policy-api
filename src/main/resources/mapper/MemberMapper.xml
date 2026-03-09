@@ -15,20 +15,4 @@
     <select id="selectMemberByLoginId">
         SELECT LOGIN_ID, NAME, EMAIL,PROVIDER FROM TBL_MEMBER WHERE LOGIN_ID=#{id}
     </select>
-
-
-
-<!--MEMBER_PLUS-->
-    <insert id="insertMemberPlus" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO TBL_MEMBER_PLUS(MEMBER_ID, AGE, REGION, MAIN_CATEGORY, MARRIAGE)
-        VALUES (#{memberId}, #{age}, #{region}, #{mainCategory}, #{marriage})
-    </insert>
-
-    <select id="selectMemberPlusDTOByMemberId">
-
-        SELECT TMP.AGE, TMP.REGION, TMP.REGION, TMP.MEMBER_ID, TMP.MAIN_CATEGORY ,TM.NAME
-        FROM TBL_MEMBER_PLUS TMP
-        RIGHT JOIN TBL_MEMBER TM ON TMP.MEMBER_ID = TM.LOGIN_ID
-        WHERE TM.LOGIN_ID = #{loginId}
-    </select>
 </mapper>

@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 @Data
 public class PolicyDetailDTO {
-//     table master
+    //     table master
     //    정책이름
     private String policyName;
     //    대분류
@@ -24,7 +24,7 @@ public class PolicyDetailDTO {
     private String adminName;
 
 
-//    table support
+    //    table support
     //    정책 내용 요약
     private String supportSummary;
     //    정책 지원규모 제한
@@ -34,7 +34,7 @@ public class PolicyDetailDTO {
     //    지원 순서 혜택 여부
     private String firstComeFlag;
 
-//    table application
+    //    table application
     //    정책 지원방법 또는 기간
     private String applyMethod;
     //    정책 신청 url
@@ -48,7 +48,7 @@ public class PolicyDetailDTO {
     //    정책 참고 링크 2
     private String referenceUrl2;
 
-//    table business period
+    //    table business period
     //    시작 날짜
     private String businessStartDate;
     //    종료 날짜
@@ -56,7 +56,7 @@ public class PolicyDetailDTO {
     //    신청 기간 연중 모집 여부
     private String businessPeriodType;
 
-//    table eligibility
+    //    table eligibility
     //    최소 나이
     private String minAge;
     //    최대 나이
@@ -69,7 +69,7 @@ public class PolicyDetailDTO {
     public String formatStartDate() {
         DateTimeFormatter input = DateTimeFormatter.ofPattern("yyyyMMdd");
         DateTimeFormatter output = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
-        if (this.businessStartDate.isEmpty() || this.businessStartDate.isBlank()){
+        if (this.businessStartDate.isEmpty()){
             this.businessStartDate = "-";
             return this.businessStartDate;
         }
@@ -78,7 +78,7 @@ public class PolicyDetailDTO {
     public String formatEndDate() {
         DateTimeFormatter input = DateTimeFormatter.ofPattern("yyyyMMdd");
         DateTimeFormatter output = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
-        if(this.businessEndDate.isEmpty() || this.businessEndDate.isBlank()){
+        if(this.businessEndDate.isEmpty()){
             this.businessEndDate = "-";
             return this.businessEndDate;
         }
