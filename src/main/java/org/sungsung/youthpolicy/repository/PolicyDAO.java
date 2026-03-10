@@ -58,8 +58,8 @@ public class PolicyDAO {
         return policyMapper.selectFilterPolicyIds(policyConditionVO);
     }
     //    필터링된 정책의 아이디로 정책목록 가져오기
-    public List<PolicyDTO> selectPolicyListByFilteringId(List<String> policyIds){
-        return policyMapper.selectPolicyListByFilteringId(policyIds);
+    public PolicyDTO selectPolicyListByFilteringId(String policyId){
+        return policyMapper.selectPolicyListByFilteringId(policyId);
     }
     //    AI 추천 정책 삽입
     public void insertRecommendPolicy(PolicyRecommendVO policyRecommendVO){

@@ -83,8 +83,8 @@ public class PolicyServiceImpl implements PolicyService {
     }
 
     @Override
-    public List<PolicyDTO> findFilteringPolicyList(List<String> policyIds) {
-        return policyDAO.selectPolicyListByFilteringId(policyIds);
+    public PolicyDTO findFilteringPolicyList(String policyId) {
+        return policyDAO.selectPolicyListByFilteringId(policyId);
     }
 
     @Override

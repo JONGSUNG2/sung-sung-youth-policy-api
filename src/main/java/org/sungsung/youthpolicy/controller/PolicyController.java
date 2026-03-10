@@ -96,7 +96,10 @@ public class PolicyController {
         if (principal == null) {
             return ResponseEntity.notFound().build();
         }
-        policyRecommendService.processRecommendation(hash,principal.getName());
+        Boolean findPolicies = policyRecommendService.processRecommendation(hash,principal.getName());
+        if (!findPolicies) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok().build();
     }
 

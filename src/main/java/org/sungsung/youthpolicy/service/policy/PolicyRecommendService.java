@@ -8,6 +8,7 @@ import org.sungsung.youthpolicy.domain.dto.policy.publicData.PolicyDTO;
 import org.sungsung.youthpolicy.domain.vo.policy.PolicyConditionVO;
 import org.sungsung.youthpolicy.service.api.ai.OpenAiService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,16 +19,22 @@ public class PolicyRecommendService {
     private final PolicyService policyService;
     private final OpenAiService openAiService;
 
-    public void processRecommendation(String hash,String memberLoginId) {
+    public Boolean processRecommendation(String hash,String memberLoginId) {
 
         // 1. 조건 조회
         PolicyConditionVO condition = policyService.findRecommendPolicyByHash(hash);
 
         // 2. 필터링된 정책 ID 리스트 조회
         List<String> policyIds = policyService.findFilteringPolicyIds(condition);
+        if (policyIds.isEmpty()) {
+            return false;
+        }
 
         // 3. VIEW에서 정책 상세 리스트 한번에 조회
-        List<PolicyDTO> policyList = policyService.findFilteringPolicyList(policyIds);
+        List<PolicyDTO> policyList = new ArrayList<>();
+        for (String policyId : policyIds) {
+           policyList.add(policyService.findFilteringPolicyList(policyId));
+        }
 
         // 4. GPT 프롬프트 생성 및 호출
         List<PolicyRecommendVO> recommendList = openAiService.recommendPolicyByAi(policyList,memberLoginId);
@@ -38,5 +45,6 @@ public class PolicyRecommendService {
             recommendPolicy.setConditionHash(hash);
             policyService.writeRecommendPolicy(recommendPolicy);
         }
+        return true;
     }
 }

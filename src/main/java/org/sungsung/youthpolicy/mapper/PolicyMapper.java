@@ -31,7 +31,7 @@ public interface PolicyMapper {
     //    정책 필터링 아이디 목록 가져오기
     public List<String> selectFilterPolicyIds(PolicyConditionVO policyConditionVO);
     //    필터링된 정책의 아이디로 정책목록 가져오기
-    public List<PolicyDTO> selectPolicyListByFilteringId(List<String> policyIds);
+    public PolicyDTO selectPolicyListByFilteringId(String id);
 
     //    TBL_RECOMMEND_POLICY
 //    AI 추천 정책 삽입

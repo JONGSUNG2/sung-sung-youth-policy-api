@@ -24,7 +24,7 @@ public interface PolicyService {
     //    정책 필터링 목록
     public List<String> findFilteringPolicyIds(PolicyConditionVO policyConditionVO);
     //    필터링된 정책의 아이디로 정책목록 가져오기
-    public List<PolicyDTO> findFilteringPolicyList(List<String> policyId);
+    public PolicyDTO findFilteringPolicyList(String policyId);
     //    AI 추천 정책 삽입
     public void writeRecommendPolicy(PolicyRecommendVO policyRecommendVO);
     //    AI 추천 정책목록 조회

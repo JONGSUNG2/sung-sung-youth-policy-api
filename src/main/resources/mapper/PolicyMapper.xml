@@ -161,10 +161,7 @@
     <select id="selectPolicyListByFilteringId" resultType="PolicyDTO">
         SELECT *
         FROM POLICY_AI_VIEW
-        WHERE POLICY_ID IN
-        <foreach item="id" collection="list" open="(" close=")" separator=",">
-            #{id}
-        </foreach>
+        WHERE POLICY_ID = #{id}
     </select>
     <!--    AI 추천 정책 삽입-->
     <insert id="insertRecommendPolicy" useGeneratedKeys="true" keyProperty="id">
