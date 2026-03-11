@@ -28,4 +28,13 @@ public enum Region {
     private final String code;
     private final String name;
 
+    public static String getNameByCode(String code) {
+        for (Region region : Region.values()) {
+            if (region.getCode().equals(code)) {
+                return region.getName();
+            }
+        }
+        return code; // 못 찾으면 원래 코드 그대로 반환
+    }
+
 }

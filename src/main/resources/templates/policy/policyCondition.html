@@ -3,52 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <title>AI 정책 추천 - 조건 입력</title>
+
     <style>
-        body { font-family: Arial, sans-serif; background: #f7f7f7; padding: 20px; }
-        .container { max-width: 480px; margin: auto; background: #fff; padding: 24px; border-radius: 10px; box-shadow: 0 0 8px #ddd; }
-        h2 { text-align: center; }
-        label { font-weight: bold; margin-top: 12px; display: block; }
-        input, select { width: 100%; padding: 8px; margin-top: 6px; border: 1px solid #ccc; border-radius: 5px; }
-        button { width: 100%; padding: 12px; margin-top: 20px; background: #3478f6; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
-        button:hover { background: #2e6ada; }
+        body {
+            margin: 0;
+            font-family: 'Inter', Arial, sans-serif;
+            background: #f4f6fb;
+            color: #333;
+        }
+
+        /* Container */
+        .container {
+            max-width: 480px;
+            margin: 60px auto;
+            background: #ffffff;
+            padding: 40px 32px;
+            border-radius: 18px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #2d68ff;
+        }
+
+        label {
+            font-weight: 600;
+            margin-top: 18px;
+            display: block;
+            font-size: 15px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            border: 1px solid #d6d9e0;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 30px;
+            background: #2d68ff;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 17px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #2557d6;
+        }
+
+        /* Back Link */
+        .back-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .back-link a {
+            color: #2d68ff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
+
 <body>
 
 <div class="container">
+
     <h2>AI 정책 추천 받기</h2>
 
     <form th:action="@{/policy/condition}" method="post" th:object="${policyConditionVO}">
 
         <label>나이</label>
-        <input type="number" name="age" min="1" required>
+        <input type="number" name="age" min="1" th:field="*{age}" required>
 
         <label>거주 지역</label>
-        <select name="region" th:field="*{region}">
+        <select th:field="*{region}">
             <option value="">전체 지역</option>
-            <option th:each="r:${regions}" th:value="${r.code}" th:text="${r.name}"></option>
+            <option th:each="r : ${regions}" th:value="${r.code}" th:text="${r.name}"></option>
         </select>
+
         <label>전체 분야</label>
-        <select name="region" th:field="*{mainCategory}">
+        <select th:field="*{mainCategory}">
             <option value="">선택하세요</option>
-            <option th:each="c:${mainCategories}" th:value="${c.name}" th:text="${c.name}">선택하세요</option>
+            <option th:each="c : ${mainCategories}" th:value="${c.name}" th:text="${c.name}"></option>
         </select>
-
-        <!--        <label>취업 상태</label>-->
-        <!--        <select name="employment" required>-->
-        <!--            <option value="student">학생</option>-->
-        <!--            <option value="jobseeker">구직자</option>-->
-        <!--            <option value="employee">근로자</option>-->
-        <!--        </select>-->
-
-        <!--        <label>장애 여부</label>-->
-        <!--        <select name="disability" required>-->
-        <!--            <option value="false">없음</option>-->
-        <!--            <option value="true">있음</option>-->
-        <!--        </select>-->
 
         <button type="submit">AI 추천 받기</button>
     </form>
+
+    <div class="back-link">
+        <a href="/">← 메인으로 돌아가기</a>
+    </div>
+
 </div>
 
 </body>

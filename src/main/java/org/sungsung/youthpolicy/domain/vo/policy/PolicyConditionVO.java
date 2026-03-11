@@ -10,4 +10,6 @@ public class PolicyConditionVO {
     private String region;
     private String mainCategory;
     private String conditionHash;
+
+
 }

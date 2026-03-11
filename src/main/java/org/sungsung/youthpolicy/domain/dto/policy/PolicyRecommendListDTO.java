@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class PolicyRecommendListDTO {
+    private String policyId;
     private String loginId;
     private String age;
     private String mainCategory;

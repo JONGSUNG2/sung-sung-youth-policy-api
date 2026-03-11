@@ -107,6 +107,9 @@ public class PolicyController {
     @GetMapping("/policyRecommendList")
     public String policyRecommendListPage(@RequestParam String hash,Model model) {
         List<PolicyRecommendListDTO> recommendList = policyService.findRecommendPolicyList(hash);
+        PolicyConditionVO condition = policyService.findRecommendPolicyByHash(hash);
+        condition.setRegion(Region.getNameByCode(condition.getRegion()));
+        model.addAttribute("condition",condition);
         model.addAttribute("recommendList", recommendList);
         return "policy/policyRecommendList";
     }
